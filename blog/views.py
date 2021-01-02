@@ -103,6 +103,9 @@ def user(request, pk):
     get_user = User.objects.get(blog=user)
     print(get_user)
 
+    r_user = User.objects.get(username__exact=request.user)
+    print(r_user)
+
 
 
     check1 = None
