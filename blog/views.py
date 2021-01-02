@@ -110,6 +110,10 @@ def user(request, pk):
 
     check1 = None
     try:
+
+        check2 = Following.objects.filter(follows=r_user)
+        print(check2)
+
         check1 = Following.objects.get(follows=get_user)
         print(check1)
         print(check1.boolean)
