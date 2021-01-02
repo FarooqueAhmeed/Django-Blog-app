@@ -104,6 +104,7 @@ def user(request, pk):
     print(get_user)
 
 
+
     check1 = None
     try:
         check1 = Following.objects.get(follows=get_user)
@@ -111,18 +112,41 @@ def user(request, pk):
         print(check1.boolean)
         if check1.boolean ==True:
             print('Following')
+
+            #user = Blog.objects.filter(id=pk)
+            #user = user.get()
+
+            #check1 = User.objects.get(blog=user)
+
+            #print(check1)
+            #all_blogs = Blog.objects.filter(user=check1)
+            #print(all_blogs)
+
+            #blog_count = Blog.objects.filter(user=check1).count()
+            #print(blog_count)   ,'all_blogs':all_blogs,'blog_count':blog_count
+
+
             context = {'check1': check1}
             return render(request, 'user.html', context)
         else:
             return render(request, 'user.html')
     except:
         print('not following')
+        user = Blog.objects.filter(id=pk)
+        user = user.get()
 
-        check1 = User.objects.get(blog=user)
+        #check1 = User.objects.get(blog=user)
 
-        print(check1)
+        #print(check1)
+        #all_blogs = Blog.objects.filter(user=check1)
+        #print(all_blogs)
 
-        context = {'check1': check1}
+        #blog_count = Blog.objects.filter(user=check1).count()
+        #print(blog_count) ,'all_blogs':all_blogs,'blog_count':blog_count
+
+
+
+        context = {'check1': check1 ,'user':user }
         return render(request, 'user.html', context)
 
     #userf = Following.objects.filter(boolean=True)

@@ -70,7 +70,7 @@
 
 
 
-name : {{ check1.user }}
+{{ check1.username }}
 
 
 
@@ -80,7 +80,55 @@ name : {{ check1.user }}
             <a class="btn btn-primary btn-sm" href="{% url 'follow_user' user.id%}" >Follow</a>
         {% endif %}
 
+   <br>
 
+Blogs : {{ blog_count }}
+
+
+<div class="container">
+
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#Category </th>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Published</th>
+
+          <th scope="col">Read more</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for all_blogs in all_blogs %}
+    <tr>
+      <th scope="row">{{ all_blogs.category }}</th>
+      <td>{{all_blogs.title }}</td>
+      <td>{{ all_blogs.content }}</td>
+      <td>{{ all_blogs.created }}</td>
+      <td>
+
+       <td>
+     <a class="btn btn-primary btn-sm" href="{% url 'read_more' all_blogs.id %}" >Read more</a>
+    </td>
+
+
+    </tr>
+
+
+   {% endfor %}
+
+
+  </tbody>
+</table>
+
+
+
+
+</div>
 
 
 
