@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+<!-- Home for auth users -->
+{% block body %}
+
+
+    <!-- Message from django will be printed here -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-secondary alert-dismissible shadow-inset fade show" role="alert">
+                    <span
+                            class="alert-inner--icon"><span class="fas fa-exclamation-circle"></span></span> <span
+                    class="alert-inner--text"><strong>Action !</strong> {{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+
+    </ul>
+       <a class="" href="{% url 'add_blog' %}">Add</a>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+        Welcome {{ user.get_username }} //
+
+     <a class="" href="{% url 'logout' %}">Logout</a>
+
+    </form>
+  </div>
+</nav>
+
+
+
+
+
+<div class="container">
+
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#Category </th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Content</th>
+      <th scope="col">Published</th>
+      <th scope="col"> save </th>
+
+        {% if user.id == blogs.user.id%}
+
+      <th scope="col">Delete</th>
+      <th scope="col">Update</th>
+        {% endif %}
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for blogs in blogs %}
+    <tr>
+      <th scope="row">{{ blogs.category }}</th>
+      <td>{{ blogs.title }}</td>
+      <td>{{ blogs.user}}</td>
+      <td>{{ blogs.content }}</td>
+      <td>{{ blogs.created }}</td>
+      <td>
+           {% if user.id == blogs.user.id%}
+     <a class="btn btn-primary btn-sm" href="{% url 'delete_blog' blogs.id %}" onclick="return confirm('Are you sure you want to delete blog?')" >Delete</a>
+    </td>
+      <td>
+     <a class="btn btn-primary btn-sm" href="{% url 'edit' blogs.id %}" >Edit</a>
+    </td>
+    {% endif %}
+    
+
+
+    <a href="{% url 'fav' blogs.id %}">
+         <button class="btn btn-primary animate-right-3" type="button">
+                        fav
+         </button>
+     </a>
+    </tr>
+
+
+
+  </tbody>
+</table>
+
+
+
+ <form action="{% url 'comment' blogs.id %}", method="post">
+        {% csrf_token %}
+        <label for="comment">write your comment here:</label>
+        <br>
+        <textarea id="comment" name="comment" rows="2" cols="30" required></textarea>
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+   {% endfor %}
+
+
+
+   <br>
+                {% for comment in comment %}
+                            <h5 class="card-title" style="">{{ comment.user.username }}</h5>
+                            <p class="small">{{ comment.created}}</p>
+                            <div class="p-3 m-3 border">{{ comment.comment }}</div>
+                        {% empty %}
+                        <h5 class="card-title" style="text-decoration: underline;">No Comments</h5>
+
+                        {% endfor %}
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

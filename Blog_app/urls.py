@@ -1,0 +1,50 @@
+"""Blog_app URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.conf.urls import url
+from django.contrib import admin
+from django.urls import path
+from blog.views import *
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', index, name='index'),
+    path('home', home, name='home'),
+    url(r'^login/$', user_login, name='login'),
+    url(r'^logout/$', user_logout, name='logout'),
+    url(r'^signup/$', user_signup, name='signup'),
+
+    path('add_blog',add_blog, name='add_blog'),
+    path('delete_blog/<int:pk>/',delete_blog, name='delete_blog'),
+    path('edit/<int:pk>/', edit, name='edit'),
+    path('update/<int:pk>/', update, name='update'),
+    path('my_blogs', my_blogs, name='my_blogs'),
+
+    path('read_more/<int:pk>/', read_more, name='read_more'),
+    path("comment/<int:pk>", comment, name="comment"),
+
+    path("fav/<int:pk>",fav, name="fav"),
+    path('favorites', favorites, name='favorites'),
+    path('deletefav/<int:pk>/', deletefav, name='deletefav'),
+
+    path('profile/<int:pk>/', profile, name='profile'),
+    path('user/<int:pk>/', user, name='user'),
+
+    path('follow_user/<int:pk>/', follow_user, name='follow_user'),
+    path('my_followed', my_followed, name='my_followed'),
+    path('unfollow/<int:pk>/', unfollow, name='unfollow'),
+
+
+]
