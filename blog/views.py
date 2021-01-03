@@ -107,8 +107,6 @@ def user(request, pk):
     print(r_user)
 
 
-
-   # check1 = None
     try:
 
         check2 = Following.objects.filter(follows=r_user)
@@ -155,16 +153,6 @@ def user(request, pk):
              }
         return render(request, 'user.html', context)
 
-    #userf = Following.objects.filter(boolean=True)
-    #print(userf)
-
-    #followed = Following.objects.filter(a_user__exact=request.user)
-
-
-
-    context = {'user': user, 'followed':followed}
-
-    return render(request, 'user.html',context)
 
 
 
