@@ -118,20 +118,18 @@ def user(request, pk):
         check1 = check1.get(boolean=True)
         print(check1)
 
-            #user = Blog.objects.filter(id=pk)
-            #user = user.get()
+        all_blogs = Blog.objects.filter(user=get_user)
+        print(all_blogs)
 
-            #check1 = User.objects.get(blog=user)
-
-            #print(check1)
-            #all_blogs = Blog.objects.filter(user=check1)
-            #print(all_blogs)
-
-            #blog_count = Blog.objects.filter(user=check1).count()
-            #print(blog_count)   ,'all_blogs':all_blogs,'blog_count':blog_count
+        blog_count = Blog.objects.filter(user=get_user).count()
 
 
-        context = {'check1': check1}
+        context = {
+            'check1': check1 ,
+            'get_user':get_user,
+            'all_blogs':all_blogs,
+            'blog_count':blog_count
+        }
         return render(request, 'user.html', context)
 
     except:
@@ -139,18 +137,22 @@ def user(request, pk):
         user = Blog.objects.filter(id=pk)
         user = user.get()
 
-        #check1 = User.objects.get(blog=user)
+        get_user = User.objects.get(blog=user)
+        print(get_user)
 
-        #print(check1)
-        #all_blogs = Blog.objects.filter(user=check1)
-        #print(all_blogs)
+        all_blogs = Blog.objects.filter(user=get_user)
+        print(all_blogs)
 
-        #blog_count = Blog.objects.filter(user=check1).count()
-        #print(blog_count) ,'all_blogs':all_blogs,'blog_count':blog_count
-
+        blog_count = Blog.objects.filter(user=get_user).count()
 
 
-        context = {'check1': check1 ,'user':user }
+        context = {
+            'check1': check1 ,
+            'user':user,
+            'get_user':get_user,
+             'all_blogs':all_blogs,
+            'blog_count':blog_count,
+             }
         return render(request, 'user.html', context)
 
     #userf = Following.objects.filter(boolean=True)
