@@ -143,9 +143,9 @@ def user(request, pk):
 
         blog_count = Blog.objects.filter(user=get_user).count()
 
-
+        
         context = {
-            'check1': check1 ,
+            'check1': check1,
             'user':user,
             'get_user':get_user,
              'all_blogs':all_blogs,
@@ -170,6 +170,9 @@ def follow_user(request,pk):
 @login_required
 def my_followed(request):
     followed = Following.objects.filter(a_user_id__exact=request.user)
+    #my_followers = Following.objects.filter(follows=request.user)
+    #print(my_followers)
+
     context = {'followed': followed}
 
     return render(request, 'my_followed.html', context)
