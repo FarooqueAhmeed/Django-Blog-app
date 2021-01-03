@@ -178,15 +178,8 @@ def my_followed(request):
 
 @login_required
 def unfollow(request, pk):
-    #unfoll = Following.objects.filter(id=pk)
-    #follow = unfoll.follows.follows
-    #unfoll.delete()
-    #messages.success(request, f" {}  Unfollowed")
-
     boolean_false = Following.objects.get(id=pk)
     boolean_false.delete()
-    #boolean_false.boolean = False
-    #boolean_false.save()
 
     return redirect('home')
 
