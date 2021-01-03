@@ -114,7 +114,7 @@ def user(request, pk):
         check2 = Following.objects.filter(follows=r_user)
         print(check2)
 
-        check1 = Following.objects.get(follows=get_user)
+        check1 = Following.objects.filter(follows=get_user).filter(a_user=r_user).filter(boolean=True)
         print(check1)
         print(check1.boolean)
         if check1.boolean ==True:
