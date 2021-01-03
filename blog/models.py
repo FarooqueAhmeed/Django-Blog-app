@@ -53,7 +53,7 @@ class Following(models.Model):
     boolean = models.BooleanField(default=False,blank=True)
 
     def __str__(self):
-        return self.follows.username + '-' + str(self.boolean)
+        return self.a_user.username ,'-follows-',self.follows
 
 
 
