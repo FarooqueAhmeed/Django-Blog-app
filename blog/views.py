@@ -143,7 +143,7 @@ def user(request, pk):
 
         blog_count = Blog.objects.filter(user=get_user).count()
 
-        
+
         context = {
             'check1': check1,
             'user':user,
