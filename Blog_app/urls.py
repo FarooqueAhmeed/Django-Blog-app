@@ -47,5 +47,7 @@ urlpatterns = [
     path('unfollow/<int:pk>/', unfollow, name='unfollow'),
     path('my_followers/<int:pk>/', my_followers, name='my_followers'),
 
+    path('search_by_blog_title', search_by_blog_title, name='search_by_blog_title'),
+
 
 ]

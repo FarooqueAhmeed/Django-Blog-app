@@ -51,16 +51,17 @@
       </li>
 
     </ul>
-       <a class="" href="{% url 'add_blog' %}">Add</a>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+       <a class="" href="{% url 'add_blog'  %}">Add</a>
+    <form class="form-inline my-2 my-lg-0" action="{%url 'search_by_blog_title' %}">
+      <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
-        <a href="{% url 'profile' user.id %}" >{{ user.get_username }} </a> //
-
-     <a class="" href="{% url 'logout' %}">Logout</a>
 
     </form>
+
+       <a href="{% url 'profile' user.id %}" >{{ user.get_username }} </a> //
+
+     <a class="" href="{% url 'logout' %}">Logout</a>
   </div>
 </nav>
 
@@ -127,7 +128,9 @@
   </tbody>
 </table>
 
-
+Blogs :{{ count_all_blogs }}
+<br>
+Register users :{{ count_all_users }}
 
 
 </div>

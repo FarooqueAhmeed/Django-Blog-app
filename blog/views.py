@@ -87,8 +87,14 @@ def index(request):
 def home(request):
 
     blogs = Blog.objects.all()
+    count_all_blogs = Blog.objects.all().count()
+    count_all_users = User.objects.all().count()
 
-    context = {'blogs': blogs}
+    context = {
+        'blogs': blogs,
+        'count_all_blogs':count_all_blogs,
+        'count_all_users':count_all_users,
+    }
 
     return render(request, 'home.html',context)
 
@@ -331,11 +337,22 @@ def profile(request, pk):
 def my_blogs(request):
     my = Blog.objects.filter(user__exact=request.user)
 
+
     return render(request, 'my_blogs.html',  {'my': my})
 
 
 
 
+@login_required
+def search_by_blog_title(request):
+    search = request.GET['title']
+    search = Blog.objects.filter(title__icontains=search)
+    print(search)
+    if search == []:
+        msg = 'Not found'
+        return render(request,"search_by_blog_title.html",{'msg':msg})
+    else:
+        return render(request,'search_by_blog_title.html',  {'search': search})
 
 
 
