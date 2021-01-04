@@ -107,65 +107,60 @@ def user(request, pk):
     print(r_user)
 
 
-
-    check1 = None
     try:
+        followers_count = Following.objects.filter(follows=get_user).count()
+        print(followers_count)
 
         check2 = Following.objects.filter(follows=r_user)
         print(check2)
 
         check1 = Following.objects.filter(follows=get_user).filter(a_user=r_user).filter(boolean=True)
+        check1 = check1.get(boolean=True)
         print(check1)
-        print(check1.boolean)
-        if check1.boolean ==True:
-            print('Following')
 
-            #user = Blog.objects.filter(id=pk)
-            #user = user.get()
+        all_blogs = Blog.objects.filter(user=get_user)
+        print(all_blogs)
 
-            #check1 = User.objects.get(blog=user)
-
-            #print(check1)
-            #all_blogs = Blog.objects.filter(user=check1)
-            #print(all_blogs)
-
-            #blog_count = Blog.objects.filter(user=check1).count()
-            #print(blog_count)   ,'all_blogs':all_blogs,'blog_count':blog_count
+        blog_count = Blog.objects.filter(user=get_user).count()
 
 
-            context = {'check1': check1}
-            return render(request, 'user.html', context)
-        else:
-            return render(request, 'user.html')
+        context = {
+            'check1': check1 ,
+            'get_user':get_user,
+            'all_blogs':all_blogs,
+            'blog_count':blog_count,
+            'followers_count':followers_count,
+        }
+        return render(request, 'user.html', context)
+
     except:
+
         print('not following')
         user = Blog.objects.filter(id=pk)
         user = user.get()
 
-        #check1 = User.objects.get(blog=user)
+        get_user = User.objects.get(blog=user)
+        print(get_user)
 
-        #print(check1)
-        #all_blogs = Blog.objects.filter(user=check1)
-        #print(all_blogs)
+        all_blogs = Blog.objects.filter(user=get_user)
+        print(all_blogs)
 
-        #blog_count = Blog.objects.filter(user=check1).count()
-        #print(blog_count) ,'all_blogs':all_blogs,'blog_count':blog_count
+        blog_count = Blog.objects.filter(user=get_user).count()
+
+        followers_count = Following.objects.filter(follows=get_user).count()
+        print(followers_count)
 
 
-
-        context = {'check1': check1 ,'user':user }
+        context = {
+            'check1': check1,
+            'user':user,
+            'get_user':get_user,
+             'all_blogs':all_blogs,
+            'blog_count':blog_count,
+            'followers_count': followers_count,
+             }
         return render(request, 'user.html', context)
 
-    #userf = Following.objects.filter(boolean=True)
-    #print(userf)
-
-    #followed = Following.objects.filter(a_user__exact=request.user)
-
-
-
-    context = {'user': user, 'followed':followed}
-
-    return render(request, 'user.html',context)
 
 
 
@@ -183,23 +178,38 @@ def follow_user(request,pk):
 @login_required
 def my_followed(request):
     followed = Following.objects.filter(a_user_id__exact=request.user)
+    #my_followers = Following.objects.filter(a_user=id)
+    #print(my_followers)
+
     context = {'followed': followed}
 
     return render(request, 'my_followed.html', context)
 
 
+@login_required
+def my_followers(request,pk):
+
+    my_followers = Following.objects.filter(follows=pk)
+    print(my_followers)
+    my_followers_count = Following.objects.filter(follows=pk).count()
+    print(my_followers_count)
+
+
+    if my_followers == None:
+        messages.info(request, 'Nobody follows you !')
+        return render(request, 'my_followers.html')
+    else:
+        context = {
+            'my_followers': my_followers,
+            'my_followers_count':my_followers_count,
+        }
+        return render(request, 'my_followers.html', context)
+
 
 @login_required
 def unfollow(request, pk):
-    #unfoll = Following.objects.filter(id=pk)
-    #follow = unfoll.follows.follows
-    #unfoll.delete()
-    #messages.success(request, f" {}  Unfollowed")
-
     boolean_false = Following.objects.get(id=pk)
     boolean_false.delete()
-    #boolean_false.boolean = False
-    #boolean_false.save()
 
     return redirect('home')
 

@@ -45,6 +45,7 @@ urlpatterns = [
     path('follow_user/<int:pk>/', follow_user, name='follow_user'),
     path('my_followed', my_followed, name='my_followed'),
     path('unfollow/<int:pk>/', unfollow, name='unfollow'),
+    path('my_followers/<int:pk>/', my_followers, name='my_followers'),
 
 
 ]
