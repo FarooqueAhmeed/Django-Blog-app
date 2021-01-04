@@ -71,19 +71,15 @@
 <table class="table table-striped">
   <thead>
     <tr>
-
-      <th scope="col">Author</th>
       <th scope="col">Title</th>
       <th scope="col">Remove</th>
-
-
     </tr>
   </thead>
   <tbody>
     {% for fav in fav %}
 
     <tr>
-     <td>{{ fav.user}}</td>
+
       <td>{{ fav.blog }}</td>
       <td>
           <a href="{% url 'deletefav' fav.id %}">unsave</a>

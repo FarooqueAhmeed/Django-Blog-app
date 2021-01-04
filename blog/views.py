@@ -286,9 +286,16 @@ def fav(request, pk):
     blog = Blog.objects.filter(id=pk)
     favorite = Favorite(user=request.user, blog=blog.get())
     blog_title = blog.get().title
-    favorite.save()
-    messages.success(request, f"{blog_title} Blog added to favorites")
-    return redirect('home')
+
+
+    check_for_exist = Favorite.objects.filter(blog_id=pk).exists()
+    print(check_for_exist)
+    if check_for_exist == True:
+        return redirect('favorites')
+    else:
+        favorite.save()
+        messages.success(request, f"{blog_title} Blog added to favorites")
+        return redirect('home')
 
 
 @login_required

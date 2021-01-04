@@ -33,7 +33,7 @@ class Favorite(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.username ,'-' , self.blog
+        return '{} {} {}'.format(self.user,'-fav-', self.blog)
 
 
 class Comments(models.Model):
@@ -53,7 +53,7 @@ class Following(models.Model):
     boolean = models.BooleanField(default=False,blank=True)
 
     def __str__(self):
-        #return self.a_user.username , '-follows-' ,self.follows
+
         return '{} {} {} {} {} {} {}'.format(self.a_user,'- following to -' ,self.follows,'-from-',self.created  ,': status =' ,self.boolean)
 
 
