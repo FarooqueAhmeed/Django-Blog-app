@@ -21,7 +21,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
+  <a class="navbar-brand"  href="{% url 'home' %}">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -29,7 +29,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link"  href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -39,11 +39,7 @@
           Dropdown
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'favorites' %}">Favorites</a>
-              <a class="dropdown-item" href="{% url 'my_followed' %}">My followed</a>
-             <a class="dropdown-item" href="{% url 'my_blogs' %}">My Blogs</a>
-            <a class="dropdown-item" href="{% url 'my_followers' user.id%}">My followers</a>
-
+          <a class="dropdown-item" href="#">Action</a>
           <a class="dropdown-item" href="#">Another action</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
@@ -51,12 +47,11 @@
       </li>
 
     </ul>
-       <a class="" href="{% url 'add_blog' %}">Add</a>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
-        <a href="{% url 'profile' user.id %}" >{{ user.get_username }} </a> //
+        Welcome {{ user.get_username }} //
 
      <a class="" href="{% url 'logout' %}">Logout</a>
 
@@ -64,68 +59,31 @@
   </div>
 </nav>
 
+<br><br><br><br><br>
+
+   <div class="container">
 
 
 
 
-<div class="container">
+   {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
 
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#Category </th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Content</th>
-      <th scope="col">Published</th>
 
-        {% if user.id == blogs.user.id%}
+Followers : {{ my_followers_count }}
 
-      <th scope="col">Delete</th>
-      <th scope="col">Update</th>
-        {% endif %}
-          <th scope="col">Read more</th>
-
-
-    </tr>
-  </thead>
-  <tbody>
-    {% for blogs in blogs %}
-    <tr>
-      <th scope="row">{{ blogs.category }}</th>
-      <td>{{ blogs.title }}</td>
-      <td>
-    <a href="{% url 'user' blogs.id %}" >
-
-          {{ blogs.user}}
-        </a>
-    </td>
-      <td>{{ blogs.content }}</td>
-      <td>{{ blogs.created }}</td>
-      <td>
-           {% if user.id == blogs.user.id%}
-     <a class="btn btn-primary btn-sm" href="{% url 'delete_blog' blogs.id %}" onclick="return confirm('Are you sure you want to delete blog?')" >Delete</a>
-    </td>
-      <td>
-     <a class="btn btn-primary btn-sm" href="{% url 'edit' blogs.id %}" >Edit</a>
-    </td>
-    {% endif %}
-
-       <td>
-     <a class="btn btn-primary btn-sm" href="{% url 'read_more' blogs.id %}" >Read more</a>
-    </td>
-
-
-    </tr>
-
-
-   {% endfor %}
-
-
-  </tbody>
-</table>
+{% for my_followers in my_followers %}
+   <br>
+    Name :
+    {{ my_followers.a_user}}
+{% endfor %}
 
 
 

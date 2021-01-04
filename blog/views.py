@@ -108,6 +108,8 @@ def user(request, pk):
 
 
     try:
+        followers_count = Following.objects.filter(follows=get_user).count()
+        print(followers_count)
 
         check2 = Following.objects.filter(follows=r_user)
         print(check2)
@@ -126,11 +128,13 @@ def user(request, pk):
             'check1': check1 ,
             'get_user':get_user,
             'all_blogs':all_blogs,
-            'blog_count':blog_count
+            'blog_count':blog_count,
+            'followers_count':followers_count,
         }
         return render(request, 'user.html', context)
 
     except:
+
         print('not following')
         user = Blog.objects.filter(id=pk)
         user = user.get()
@@ -143,6 +147,9 @@ def user(request, pk):
 
         blog_count = Blog.objects.filter(user=get_user).count()
 
+        followers_count = Following.objects.filter(follows=get_user).count()
+        print(followers_count)
+
 
         context = {
             'check1': check1,
@@ -150,6 +157,7 @@ def user(request, pk):
             'get_user':get_user,
              'all_blogs':all_blogs,
             'blog_count':blog_count,
+            'followers_count': followers_count,
              }
         return render(request, 'user.html', context)
 
@@ -170,13 +178,32 @@ def follow_user(request,pk):
 @login_required
 def my_followed(request):
     followed = Following.objects.filter(a_user_id__exact=request.user)
-    #my_followers = Following.objects.filter(follows=request.user)
+    #my_followers = Following.objects.filter(a_user=id)
     #print(my_followers)
 
     context = {'followed': followed}
 
     return render(request, 'my_followed.html', context)
 
+
+@login_required
+def my_followers(request,pk):
+
+    my_followers = Following.objects.filter(follows=pk)
+    print(my_followers)
+    my_followers_count = Following.objects.filter(follows=pk).count()
+    print(my_followers_count)
+
+
+    if my_followers == None:
+        messages.info(request, 'Nobody follows you !')
+        return render(request, 'my_followers.html')
+    else:
+        context = {
+            'my_followers': my_followers,
+            'my_followers_count':my_followers_count,
+        }
+        return render(request, 'my_followers.html', context)
 
 
 @login_required
