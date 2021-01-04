@@ -105,13 +105,25 @@
     </td>
     {% endif %}
     
-
-
+{% if user.id == blogs.user.id%}
+<td>
+    <a href="{% url 'fav' blogs.id %}">
+         <button class="btn btn-primary animate-right-3" type="button" disabled>
+                        fav
+         </button>
+     </a>
+</td>
+   {% else %}
+    <td>
     <a href="{% url 'fav' blogs.id %}">
          <button class="btn btn-primary animate-right-3" type="button">
                         fav
          </button>
      </a>
+</td>
+
+    {% endif %}
+
     </tr>
 
 
