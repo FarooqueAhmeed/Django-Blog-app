@@ -9,7 +9,7 @@ from django.contrib import messages
 # Create your views here.
 from django.urls import reverse
 from .forms import BlogForm, Blog_update_Form
-from .models import Blog, Comments, Favorite, Following
+from .models import Blog, Comments, Favorite, Following, UserProfile
 
 
 def user_signup(request):
@@ -78,6 +78,7 @@ def usermail_exists(useremail):
 def index(request):
     blogs = Blog.objects.all()
 
+
     context= {'blogs':blogs}
 
 
@@ -89,11 +90,14 @@ def home(request):
     blogs = Blog.objects.all()
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
+    avatar = UserProfile.objects.get(user=request.user)
+    print(avatar)
 
     context = {
         'blogs': blogs,
         'count_all_blogs':count_all_blogs,
         'count_all_users':count_all_users,
+        'avatar':avatar,
     }
 
     return render(request, 'home.html',context)

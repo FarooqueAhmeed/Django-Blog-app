@@ -4,10 +4,12 @@ from django.contrib.auth.models import User
 
 # Create your models here..
 
+class UserProfile(models.Model):
+    user          = models.OneToOneField(User,on_delete=models.CASCADE)
+    avatar = models.ImageField(null=True, blank=True,upload_to="images",default='profile.png')
 
-class User(models.Model):
-      user = models.OneToOneField(User, null=True,blank=True,on_delete=models.CASCADE)
-      profile_image = models.ImageField(default='profile.jpg', null=True, blank=True)
+    def __str__(self):
+        return '{} {} {}'.format(self.user,'-and image-', self.avatar)
 
 class Blog(models.Model):
     category = (
