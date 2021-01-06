@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 # Create your models here..
 
+
+class User(models.Model):
+      user = models.OneToOneField(User, null=True,blank=True,on_delete=models.CASCADE)
+      profile_image = models.ImageField(default='profile.jpg', null=True, blank=True)
+
 class Blog(models.Model):
     category = (
         ('Sports', 'Sports'),
@@ -48,6 +53,7 @@ class Comments(models.Model):
 
 class Following(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+
     a_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows', blank=True)
     follows = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following', blank=True, default=None)
     boolean = models.BooleanField(default=False,blank=True)
