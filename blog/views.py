@@ -22,6 +22,7 @@ def user_signup(request):
         if username_exists(username) == False and usermail_exists(useremail) == False:
             user = User.objects.create_user(username, useremail, password)
             login(request, user)
+
             return render(request, 'login.html')
         else:
             messages.error(request, 'User Name or email already exist.')
@@ -79,6 +80,7 @@ def index(request):
     blogs = Blog.objects.all()
 
 
+
     context= {'blogs':blogs}
 
 
@@ -90,14 +92,14 @@ def home(request):
     blogs = Blog.objects.all()
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
-    avatar = UserProfile.objects.get(user=request.user)
-    print(avatar)
+    #avatar = UserProfile.objects.get(user=request.user)
+    #print(avatar)
 
     context = {
         'blogs': blogs,
         'count_all_blogs':count_all_blogs,
         'count_all_users':count_all_users,
-        'avatar':avatar,
+     #   'avatar':avatar,
     }
 
     return render(request, 'home.html',context)
@@ -226,15 +228,29 @@ def unfollow(request, pk):
 
 
 
+
+
 @login_required()
 def add_blog(request):
     if request.method == "POST":
-        form = BlogForm(request.POST or None)
+
+        category = request.POST.get('category')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        blog = Blog(category=category,title=title,content=content,user=request.user)
+        blog.save()
+
+        return redirect('/home')
+
+
+        '''  
+        form = BlogForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            instance.save()
-            return redirect('/home')
+            instance.save()'''
+
     else:
         form = BlogForm()
     return render(request,'add_blog.html',{'form':form})
@@ -265,15 +281,17 @@ def update(request, pk):
 
 
 
-@login_required()
+
 def read_more(request, pk):
     blogs = Blog.objects.filter(id=pk)
     blogs = blogs.get()
     comment = Comments.objects.filter(blog=blogs)
+    comments_count = Comments.objects.filter(blog=blogs).count()
+
 
     blogs = Blog.objects.filter(id=pk)
 
-    return render(request, 'read_more.html', {'comment': comment,'blogs':blogs})
+    return render(request, 'read_more.html', {'comment': comment,'blogs':blogs, 'comments_count':comments_count})
 
 
 
@@ -311,8 +329,10 @@ def fav(request, pk):
 @login_required
 def favorites(request):
     fav = Favorite.objects.filter(user__exact=request.user)
+    blogs = Blog.objects.all()
+    print(fav)
 
-    return render(request, 'favorites.html',  {'fav': fav})
+    return render(request, 'favorites.html',  {'fav': fav,'blogs':blogs})
 
 
 
@@ -326,15 +346,6 @@ def deletefav(request, pk):
     return redirect('favorites')
 
 
-
-@login_required()
-def profile(request, pk):
-
-
-    user = User.objects.filter(id=pk)
-    user = user.get()
-
-    return render(request, 'profile.html', {'user':user})
 
 
 @login_required
@@ -359,6 +370,35 @@ def search_by_blog_title(request):
         return render(request,'search_by_blog_title.html',  {'search': search})
 
 
+''' 
+@login_required()
+def edit_profile(request, pk):
+    get_user = User.objects.get(id=pk)
+    context ={'get_user': get_user}
+    return render(request,'profile.html',context)
+ '''
+
+
+@login_required()
+def profile(request, pk):
+    user = User.objects.filter(id=pk)
+    user = user.get()
+    return render(request, 'profile.html', {'user':user})
+
+
+@login_required()
+def update_profile(request, pk):
+    user = User.objects.filter(id=pk)
+    user = user.get()
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        get_user = User(username=username,email=email)
+        get_user.save()
+        return redirect("/home")
+    context = {'user': user}
+    return render(request, 'profile.html',context)
 
 
 

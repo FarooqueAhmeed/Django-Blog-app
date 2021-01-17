@@ -51,6 +51,8 @@ urlpatterns = [
 
     path('search_by_blog_title', search_by_blog_title, name='search_by_blog_title'),
 
+    path('update_profile/<int:pk>/', update_profile, name='update_profile'),
+
 
 ]
 

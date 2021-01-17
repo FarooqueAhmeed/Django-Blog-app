@@ -79,8 +79,7 @@
     {% for fav in fav %}
 
     <tr>
-
-      <td>{{ fav.blog }}</td>
+      <td>{{ fav.blog.title}}</td>
       <td>
           <a href="{% url 'deletefav' fav.id %}">unsave</a>
           </td>

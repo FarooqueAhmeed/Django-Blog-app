@@ -16,7 +16,7 @@ class BlogForm(ModelForm):
 class Blog_update_Form(ModelForm):
     class Meta:
         model = Blog
-        fields = ['title','content']
+        fields = ['title','content','image']
 
 
 
