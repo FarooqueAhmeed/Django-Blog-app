@@ -1,14 +1,19 @@
+import io
+import os
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
 from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
+from django.db.migrations import serializer
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
 # Create your views here.
 from django.urls import reverse
-from .forms import BlogForm, Blog_update_Form
+from .forms import BlogForm, Blog_update_Form, BlogImageForm
 from .models import Blog, Comments, Favorite, Following, UserProfile
 
 
@@ -233,12 +238,22 @@ def unfollow(request, pk):
 @login_required()
 def add_blog(request):
     if request.method == "POST":
+        #request.method = request.FILES
 
         category = request.POST.get('category')
         title = request.POST.get('title')
         content = request.POST.get('content')
+        image = request.POST.get('image',request.FILES)
 
-        blog = Blog(category=category,title=title,content=content,user=request.user)
+
+        #image = BlogImageForm
+
+        #image = image.save(commit=False)
+
+
+        #image.self.thumbnail = get_thumbnail(self.original,'50x50',crop='center',quality=99).url
+
+        blog = Blog(category=category,title=title,content=content,image=image,user=request.user)
         blog.save()
 
         return redirect('/home')
