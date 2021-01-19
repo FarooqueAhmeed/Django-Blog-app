@@ -68,7 +68,36 @@
 
 
 
-       <a href="{% url 'profile' user.id %}" >{{ user.get_username }} </a> //
+       <a href="{% url 'profile' user.id %}" >
+
+
+{% if UserProfile.avatar == 'profile.png' %}
+     <img src="media/profile.png" alt="" style=" width: 50px;
+  height: 50px;
+  border-radius: 50%; /*don't forget prefixes*/
+
+  background-position: center center;
+  /* as mentioned by Vad: */
+  background-size: cover;">
+{% else %}
+
+
+    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
+  height: 50px;
+  border-radius: 50%; /*don't forget prefixes*/
+
+  background-position: center center;
+  /* as mentioned by Vad: */
+  background-size: cover;">
+
+
+
+{% endif %}
+
+
+
+
+       </a>
 
      <a class="" href="{% url 'logout' %}">Logout</a>
 
@@ -106,7 +135,7 @@
                   <div class="blog-post">
                     <div class="blog-thumb">
                         <a href="{% url 'read_more' blogs.id %}">
-                      <img src="" alt="">
+                      <img src="{{ blogs.image.url }}" alt="">
                         </a>
                     </div>
                     <div class="down-content">
@@ -305,8 +334,13 @@
 
 
 
-
-
+{##}
+{#<form action="{% url upload_pic %}" method="post" enctype="multipart/form-data">{% csrf_token %}#}
+{#    <p>#}
+{#        <input id="id_image" type="file" class="" name="image">#}
+{#    </p>#}
+{#    <input type="submit" value="Submit" />#}
+{#</form>#}
 
 
 
@@ -450,13 +484,25 @@ Register users :{{ count_all_users }}
 
 
 
-<img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
+{% if user.avatar == None %}
+     <img src="media/profile.png" alt="" style=" width: 50px;
   height: 50px;
   border-radius: 50%; /*don't forget prefixes*/
 
   background-position: center center;
   /* as mentioned by Vad: */
   background-size: cover;">
+{% else %}
+
+
+    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
+  height: 50px;
+  border-radius: 50%; /*don't forget prefixes*/
+
+  background-position: center center;
+  /* as mentioned by Vad: */
+  background-size: cover;">
+{% endif %}
 
 
 </div>

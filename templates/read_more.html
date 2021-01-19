@@ -113,7 +113,7 @@
                   <div class="blog-post">
                     <div class="blog-thumb">
                         <a href="{% url 'read_more' blogs.id %}">
-                      <img src="media/images/IMG_20201101_070258.jpg" alt="">
+                      <img src="{{ blogs.image.url }}" alt="">
                         </a>
                     </div>
                     <div class="down-content">

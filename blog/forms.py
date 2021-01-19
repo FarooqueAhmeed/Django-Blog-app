@@ -7,6 +7,13 @@ from django.core.files.images import get_image_dimensions
 
 
 
+
+#
+# class ImageUploadForm(forms.Form):
+#     """Image upload form."""
+#     image = forms.ImageField()
+
+
 class BlogForm(ModelForm):
     class Meta:
         model = Blog

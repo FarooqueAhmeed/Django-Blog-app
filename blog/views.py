@@ -1,13 +1,15 @@
 import io
 import os
+import sys
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
 from django.db.migrations import serializer
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -15,6 +17,8 @@ from django.contrib import messages
 from django.urls import reverse
 from .forms import BlogForm, Blog_update_Form, BlogImageForm
 from .models import Blog, Comments, Favorite, Following, UserProfile
+
+
 
 
 def user_signup(request):
@@ -97,17 +101,36 @@ def home(request):
     blogs = Blog.objects.all()
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
-    #avatar = UserProfile.objects.get(user=request.user)
-    #print(avatar)
+    avatar = UserProfile.objects.get(user=request.user)
+    print(avatar)
 
     context = {
         'blogs': blogs,
         'count_all_blogs':count_all_blogs,
         'count_all_users':count_all_users,
-     #   'avatar':avatar,
+        'avatar':avatar,
     }
 
     return render(request, 'home.html',context)
+
+
+
+
+#
+#
+# def upload_pic(request):
+#     if request.method == 'POST':
+#         form = ImageUploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             m = ExampleModel.objects.get(pk=id)
+#             m.model_pic = form.cleaned_data['image']
+#             print(m)
+#             m.save()
+#             return HttpResponse('image upload success')
+#     return HttpResponseForbidden('allowed only via POST')
+
+
+
 
 
 @login_required()
@@ -238,20 +261,20 @@ def unfollow(request, pk):
 @login_required()
 def add_blog(request):
     if request.method == "POST":
-        #request.method = request.FILES
 
         category = request.POST.get('category')
         title = request.POST.get('title')
         content = request.POST.get('content')
-        image = request.POST.get('image',request.FILES)
+        image = request.FILES['image']
 
-
-        #image = BlogImageForm
-
-        #image = image.save(commit=False)
-
-
-        #image.self.thumbnail = get_thumbnail(self.original,'50x50',crop='center',quality=99).url
+        # image = Image.open(image)
+        # image = image.convert('RGB')
+        # image = image.resize((800, 800), image.ANTIALIAS)
+        # output = io.BytesIO()
+        # image.save(output, format='JPEG', quality=85)
+        # output.seek(0)
+        # return InMemoryUploadedFile(output, 'ImageField',image.name,'image/jpeg',sys.getsizeof(output), None)
+        #
 
         blog = Blog(category=category,title=title,content=content,image=image,user=request.user)
         blog.save()
@@ -259,16 +282,29 @@ def add_blog(request):
         return redirect('/home')
 
 
-        '''  
-        form = BlogForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()'''
-
     else:
         form = BlogForm()
     return render(request,'add_blog.html',{'form':form})
+
+
+
+
+
+
+
+
+#
+#
+# @login_required()
+# def a_blog(request):
+#     form = BlogForm(request.POST or None, request.FILES or None)
+#     if form.is_valid():
+#         instance = form.save(commit=False)
+#         instance.user = request.user
+#         instance.save()
+#     return redirect("/home")
+
+
 
 
 @login_required()

@@ -54,6 +54,10 @@ urlpatterns = [
 
     path('update_profile/<int:pk>/', update_profile, name='update_profile'),
 
+    # path('a_blog',a_blog, name='a_blog'),
+
+    # path('upload_pic', upload_pic, name='upload_pic'),
+
 
 ]
 
