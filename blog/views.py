@@ -101,8 +101,11 @@ def home(request):
     blogs = Blog.objects.all()
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
-    avatar = UserProfile.objects.get(user=request.user)
-    print(avatar)
+
+    try:
+       avatar = UserProfile.objects.get(user=request.user)
+    except:
+        pass
 
     context = {
         'blogs': blogs,
