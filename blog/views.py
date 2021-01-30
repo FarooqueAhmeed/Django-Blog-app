@@ -95,18 +95,44 @@ def index(request):
 
     return render(request, 'index.html',context)
 
+
+#when user will loging this function will be called 1st
 @login_required()
 def home(request):
 
+    # getting all users blogs
     blogs = Blog.objects.all()
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
 
+
+    user_p = UserProfile.objects.all()
+    print(user_p)
+    # is_avatar = False
+    # is_avatar = UserProfile.objects.get(is_avatar=request.user)
+    # is_avatar = is_avatar.get(is_avatar=True)
+    # if is_avatar == True:
+    #     print(is_avatar)
+    # else:
+    #     print(is_avatar)
+
+
     try:
        avatar = UserProfile.objects.get(user=request.user)
-    except:
-        pass
 
+
+       context = {
+           'blogs': blogs,
+           'count_all_blogs': count_all_blogs,
+           'count_all_users': count_all_users,
+           'avatar': avatar,
+       }
+
+       return render(request, 'home.html', context)
+
+    except UserProfile.DoesNotExist:
+           avatar = None
+           print(avatar)
     context = {
         'blogs': blogs,
         'count_all_blogs':count_all_blogs,
@@ -135,17 +161,20 @@ def home(request):
 
 
 
-
+# this fuction will be called when any user wants view any user profile
 @login_required()
 def user(request, pk):
 
+    # getting user name
     user = Blog.objects.filter(id=pk)
     user = user.get()
     print(user.user.username)
 
+    #getting the user for retriving all blogs to the user
     get_user = User.objects.get(blog=user)
     print(get_user)
 
+    #getting the exact/logined user which is requesting
     r_user = User.objects.get(username__exact=request.user)
     print(r_user)
 
@@ -157,6 +186,7 @@ def user(request, pk):
         check2 = Following.objects.filter(follows=r_user)
         print(check2)
 
+        # check1 is for is to check if the status of the viewed user is true or false(check if exact user followibg or not)
         check1 = Following.objects.filter(follows=get_user).filter(a_user=r_user).filter(boolean=True)
         check1 = check1.get(boolean=True)
         print(check1)
@@ -179,8 +209,10 @@ def user(request, pk):
     except:
 
         print('not following')
+
         user = Blog.objects.filter(id=pk)
         user = user.get()
+
 
         get_user = User.objects.get(blog=user)
         print(get_user)

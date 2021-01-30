@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user          = models.OneToOneField(User,on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, blank=True,upload_to="profile_pics",default='profile.png')
-
+    is_avatar = models.BooleanField(default=False, blank=True)
     def __str__(self):
         return '{} {} {}'.format(self.user,'-and image-', self.avatar)
 
