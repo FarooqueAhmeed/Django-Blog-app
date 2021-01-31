@@ -61,7 +61,7 @@ def user_login(request):
             messages.error(request, 'Invalid login details given.')
             return render(request, 'login.html')
     else:
-        return render(request, 'login.html')
+        return render(request, 'home.html')
 
 
 '''Called when user logs out'''
@@ -105,16 +105,10 @@ def home(request):
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
 
+    #
+    # user_p = UserProfile.objects.all()
+    # print(user_p)
 
-    user_p = UserProfile.objects.all()
-    print(user_p)
-    # is_avatar = False
-    # is_avatar = UserProfile.objects.get(is_avatar=request.user)
-    # is_avatar = is_avatar.get(is_avatar=True)
-    # if is_avatar == True:
-    #     print(is_avatar)
-    # else:
-    #     print(is_avatar)
 
 
     try:
@@ -463,13 +457,48 @@ def edit_profile(request, pk):
     context ={'get_user': get_user}
     return render(request,'profile.html',context)
  '''
+#
+# try:
+#     avatar = UserProfile.objects.get(user=request.user)
+#
+#     context = {
+#         'blogs': blogs,
+#         'count_all_blogs': count_all_blogs,
+#         'count_all_users': count_all_users,
+#         'avatar': avatar,
+#     }
+#
+#     return render(request, 'home.html', context)
+#
+# except UserProfile.DoesNotExist:
+#     avatar = None
+#     print(avatar)
+# context = {
+#     'blogs': blogs,
+#     'count_all_blogs': count_all_blogs,
+#     'count_all_users': count_all_users,
+#     'avatar': avatar,
+# }
 
 
 @login_required()
 def profile(request, pk):
     user = User.objects.filter(id=pk)
     user = user.get()
-    return render(request, 'profile.html', {'user':user})
+
+    try:
+        avatar = UserProfile.objects.get(user=request.user)
+
+        print(avatar)
+        print(user)
+
+        return render(request, 'home.html', {'user':user,'avatar':avatar})
+
+    except UserProfile.DoesNotExist:
+        avatar = None
+        print(avatar)
+
+    return render(request, 'profile.html', {'user':user,'avatar':avatar})
 
 
 @login_required()
