@@ -15,7 +15,7 @@ from django.contrib import messages
 
 # Create your views here.
 from django.urls import reverse
-from .forms import BlogForm, Blog_update_Form, BlogImageForm
+from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm
 from .models import Blog, Comments, Favorite, Following, UserProfile
 
 
@@ -492,7 +492,7 @@ def profile(request, pk):
         print(avatar)
         print(user)
 
-        return render(request, 'home.html', {'user':user,'avatar':avatar})
+        return render(request, 'profile.html', {'user':user,'avatar':avatar})
 
     except UserProfile.DoesNotExist:
         avatar = None
@@ -518,7 +518,15 @@ def update_profile(request, pk):
 
 
 
+@login_required()
+def upload_profile(request):
+    if request.method == "POST":
+        avatar = request.FILES['avatar']
+        avatar = UserProfile (avatar=avatar)
+        avatar.save()
 
+
+    return redirect("/profile")
 
 
 
