@@ -485,6 +485,7 @@ def edit_profile(request, pk):
 def profile(request, pk):
     user = User.objects.filter(id=pk)
     user = user.get()
+    form = UserProfileForm (instance=user)
 
     try:
         avatar = UserProfile.objects.get(user=request.user)
@@ -492,13 +493,13 @@ def profile(request, pk):
         print(avatar)
         print(user)
 
-        return render(request, 'profile.html', {'user':user,'avatar':avatar})
+        return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form})
 
     except UserProfile.DoesNotExist:
         avatar = None
         print(avatar)
 
-    return render(request, 'profile.html', {'user':user,'avatar':avatar})
+    return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form})
 
 
 @login_required()
@@ -520,13 +521,17 @@ def update_profile(request, pk):
 
 @login_required()
 def upload_profile(request):
-    if request.method == "POST":
-        avatar = request.FILES['avatar']
-        avatar = UserProfile (avatar=avatar)
-        avatar.save()
+    form = UserProfileForm(request.POST or None, request.FILES)
+    if form.is_valid():
+
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+
+            return redirect("/profile")
+    return redirect("/home")
 
 
-    return redirect("/profile")
 
 
 
