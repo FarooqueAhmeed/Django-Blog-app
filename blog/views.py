@@ -487,6 +487,7 @@ def profile(request, pk):
     user = user.get()
     form = UserProfileForm (instance=user)
 
+
     try:
         avatar = UserProfile.objects.get(user=request.user)
 
@@ -500,21 +501,6 @@ def profile(request, pk):
         print(avatar)
 
     return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form})
-
-
-@login_required()
-def update_profile(request, pk):
-    user = User.objects.filter(id=pk)
-    user = user.get()
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-
-        get_user = User(username=username,email=email)
-        get_user.save()
-        return redirect("/home")
-    context = {'user': user}
-    return render(request, 'profile.html',context)
 
 
 
@@ -531,6 +517,21 @@ def upload_profile(request,pk):
 
             return redirect("/home")
     return redirect("/home")
+
+
+@login_required()
+def update_profile(request, pk):
+    user = User.objects.filter(id=pk)
+    user = user.get()
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        get_user = User(username=username,email=email)
+        get_user.save()
+        return redirect("/home")
+    context = {'user': user}
+    return render(request, 'profile.html',context)
 
 
 
