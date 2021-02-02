@@ -520,19 +520,17 @@ def update_profile(request, pk):
 
 
 @login_required()
-def upload_profile(request):
-
+def upload_profile(request,pk):
+    img = UserProfile.objects.get(id=pk)
+    img.delete()
     form = UserProfileForm(request.POST or None, request.FILES)
     if form.is_valid():
-
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
 
-            return redirect("/profile")
+            return redirect("/home")
     return redirect("/home")
-
-
 
 
 

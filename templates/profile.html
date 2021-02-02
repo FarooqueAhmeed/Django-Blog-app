@@ -112,7 +112,7 @@
 
 {% endif %}
 
-<form action="{% url 'upload_profile' %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'upload_profile' avatar.id%}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
 
