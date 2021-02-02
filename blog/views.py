@@ -61,7 +61,7 @@ def user_login(request):
             messages.error(request, 'Invalid login details given.')
             return render(request, 'login.html')
     else:
-        return render(request, 'home.html')
+        return render(request, 'login.html')
 
 
 '''Called when user logs out'''
@@ -521,6 +521,7 @@ def update_profile(request, pk):
 
 @login_required()
 def upload_profile(request):
+
     form = UserProfileForm(request.POST or None, request.FILES)
     if form.is_valid():
 
