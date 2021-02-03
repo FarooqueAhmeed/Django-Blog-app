@@ -52,11 +52,17 @@ urlpatterns = [
 
     path('search_by_blog_title', search_by_blog_title, name='search_by_blog_title'),
 
-    path('update_profile/<int:pk>/', update_profile, name='update_profile'),
+    #path('update_profile/<int:pk>/', update_profile, name='update_profile'),
 
     path('upload_profile', upload_profile, name='upload_profile'),
 
     path('remove_img/<int:pk>/', remove_img, name='remove_img'),
+
+    path('edit_profile/<int:pk>/', edit_profile, name='edit_profile'),
+
+    path('update_user_info', update_user_info, name='update_user_info'),
+
+
 
 
 ]

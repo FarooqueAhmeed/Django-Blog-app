@@ -14,6 +14,17 @@ from django.core.files.images import get_image_dimensions
 #     image = forms.ImageField()
 
 
+
+
+class UpdateUserForm(forms.ModelForm):
+
+        email = forms.EmailField()
+        class Meta:
+                model = User
+                fields = ['username','email']
+
+
+
 class BlogForm(ModelForm):
     class Meta:
         model = Blog
@@ -40,7 +51,10 @@ class SignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields =['avatar']
+        fields =['avatar','bio']
+
+
+
 #
 # class UserProfileForm(forms.ModelForm):
 #     class Meta:

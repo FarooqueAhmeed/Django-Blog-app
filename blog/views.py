@@ -15,7 +15,7 @@ from django.contrib import messages
 
 # Create your views here.
 from django.urls import reverse
-from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm
+from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm, UpdateUserForm
 from .models import Blog, Comments, Favorite, Following, UserProfile
 
 
@@ -508,8 +508,7 @@ def profile(request, pk):
 
 @login_required()
 def upload_profile(request):
-    # img = UserProfile.objects.get(id=pk)
-    # img.delete()
+
     form = UserProfileForm(request.POST or None, request.FILES)
     if form.is_valid():
             instance = form.save(commit=False)
@@ -520,19 +519,21 @@ def upload_profile(request):
     return redirect("/home")
 
 
-@login_required()
-def update_profile(request, pk):
-    user = User.objects.filter(id=pk)
-    user = user.get()
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
 
-        get_user = User(username=username,email=email)
-        get_user.save()
-        return redirect("/home")
-    context = {'user': user}
-    return render(request, 'profile.html',context)
+#
+# @login_required()
+# def update_profile(request, pk):
+#     user = User.objects.filter(id=pk)
+#     user = user.get()
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         email = request.POST.get('email')
+#
+#         get_user = User(username=username,email=email)
+#         get_user.save()
+#         return redirect("/home")
+#     context = {'user': user}
+#     return render(request, 'profile.html',context)
 
 
 
@@ -541,6 +542,43 @@ def update_profile(request, pk):
 def remove_img(request,pk):
     img = UserProfile.objects.get(id=pk)
     img.delete()
+
+    return redirect("/home")
+
+
+
+@login_required()
+def edit_profile(request,pk):
+    user = User.objects.filter(id=pk)
+    user = user.get()
+    form = UserProfileForm(instance=user)
+
+    formUpdate = UpdateUserForm(instance=user)
+
+    try:
+        avatar = UserProfile.objects.get(user=request.user)
+
+        print(avatar)
+        print(user)
+
+        return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate})
+
+    except UserProfile.DoesNotExist:
+        avatar = None
+        print(avatar)
+
+    return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate})
+
+
+
+@login_required()
+def update_user_info(request):
+    if request.method == "POST":
+        u_form = UpdateUserForm(instance=request.user, data=request.POST)
+
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Your Profile has been updated!')
 
     return redirect("/home")
 
