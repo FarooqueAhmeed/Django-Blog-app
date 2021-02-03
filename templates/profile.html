@@ -114,7 +114,12 @@
 
 
 
-<form action="{% url 'upload_profile' avatar.id%}" method="post" enctype="multipart/form-data">
+
+
+{% if  avatar.avatar.url  == None %}
+
+
+<form action="{% url 'upload_profile' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p}}
     <div class="col-lg-12">
@@ -125,7 +130,18 @@
 </form>
 
 
+{% else %}
 
+<form action="{% url 'remove_img' avatar.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      <div class="col-lg-12">
+      <fieldset>
+           <button type="submit" id="form-submit" class="main-button">Remove</button>
+      </fieldset>
+    </div>
+</form>
+
+{% endif %}
 
 
  </div> 

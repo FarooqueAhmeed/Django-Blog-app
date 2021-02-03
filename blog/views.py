@@ -500,15 +500,16 @@ def profile(request, pk):
         avatar = None
         print(avatar)
 
+
     return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form})
 
 
 
 
 @login_required()
-def upload_profile(request,pk):
-    img = UserProfile.objects.get(id=pk)
-    img.delete()
+def upload_profile(request):
+    # img = UserProfile.objects.get(id=pk)
+    # img.delete()
     form = UserProfileForm(request.POST or None, request.FILES)
     if form.is_valid():
             instance = form.save(commit=False)
@@ -534,4 +535,12 @@ def update_profile(request, pk):
     return render(request, 'profile.html',context)
 
 
+
+
+@login_required()
+def remove_img(request,pk):
+    img = UserProfile.objects.get(id=pk)
+    img.delete()
+
+    return redirect("/home")
 

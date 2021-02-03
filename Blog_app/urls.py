@@ -54,8 +54,9 @@ urlpatterns = [
 
     path('update_profile/<int:pk>/', update_profile, name='update_profile'),
 
-    path('upload_profile/<int:pk>/', upload_profile, name='upload_profile'),
+    path('upload_profile', upload_profile, name='upload_profile'),
 
+    path('remove_img/<int:pk>/', remove_img, name='remove_img'),
 
 
 ]
