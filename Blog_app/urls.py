@@ -61,7 +61,7 @@ urlpatterns = [
     path('edit_profile/<int:pk>/', edit_profile, name='edit_profile'),
 
     path('update_user_info', update_user_info, name='update_user_info'),
-
+    path('add_bio', add_bio, name='add_bio'),
 
 
 

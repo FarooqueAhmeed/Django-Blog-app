@@ -583,3 +583,14 @@ def update_user_info(request):
 
     return redirect("/home")
 
+
+@login_required()
+def add_bio(request):
+    if request.method == "POST":
+        u_form = UserBioForm(instance=request.user, data=request.POST)
+
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Your BIO has been updated!')
+
+    return redirect("/home")
