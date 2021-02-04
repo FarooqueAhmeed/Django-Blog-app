@@ -12,10 +12,17 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user          = models.OneToOneField(User,on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, blank=True,upload_to="profile_pics",default='profile.png')
-    bio = models.CharField(max_length=100, null=True, blank=True)
-
     def __str__(self):
         return '{} {} {}'.format(self.user,'-and image-', self.avatar)
+
+
+class BIO(models.Model):
+    user          = models.OneToOneField(User,on_delete=models.CASCADE)
+    bio = models.CharField(max_length=100, null=True,blank=True)
+    def __str__(self):
+        return '{} {} {}'.format(self.user,'-and image-', self.bio)
+
+
 
 class Blog(models.Model):
     category = (
@@ -31,7 +38,7 @@ class Blog(models.Model):
         ('Pets', 'Pets'),
     )
     category = models.CharField(max_length=13, blank=True,null=True, choices= category)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, null=True,blank=True)
     content = models.CharField(max_length=1000, null=True,blank=True)
     image = models.ImageField(null=True, blank=True, upload_to="blog_image")
     created = models.DateTimeField(auto_now_add=True)

@@ -15,7 +15,7 @@ from django.contrib import messages
 
 # Create your views here.
 from django.urls import reverse
-from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm, UpdateUserForm
+from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm, UpdateUserForm, UserBioForm
 from .models import Blog, Comments, Favorite, Following, UserProfile
 
 
@@ -552,6 +552,7 @@ def edit_profile(request,pk):
     user = User.objects.filter(id=pk)
     user = user.get()
     form = UserProfileForm(instance=user)
+    form_bio = UserBioForm(instance=user)
 
     formUpdate = UpdateUserForm(instance=user)
 
@@ -561,13 +562,13 @@ def edit_profile(request,pk):
         print(avatar)
         print(user)
 
-        return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate})
+        return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate,'form_bio':form_bio})
 
     except UserProfile.DoesNotExist:
         avatar = None
         print(avatar)
 
-    return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate})
+    return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate,'form_bio':form_bio})
 
 
 

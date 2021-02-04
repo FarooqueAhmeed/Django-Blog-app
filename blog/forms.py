@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from blog.models import Blog, UserProfile
+from blog.models import Blog, UserProfile, BIO
 from django.core.files.images import get_image_dimensions
 
 
@@ -51,7 +51,15 @@ class SignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields =['avatar','bio']
+        fields =['avatar']
+
+
+
+class UserBioForm(forms.ModelForm):
+    class Meta:
+        model = BIO
+        fields =['bio']
+
 
 
 
