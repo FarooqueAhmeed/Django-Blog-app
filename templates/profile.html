@@ -89,6 +89,66 @@
     <br><br><br><br><br>
     <br><br><br><br><br>
 
+
+
+
+
+
+     <div class="profile container bg-light shadow mb-5 py-5">
+
+              <h1 class="font text-center color">Your Profile</h1>
+                    <hr> <br>
+         <div class="row">
+                     <div class="col-sm-6 text-center">
+
+                        {% if  avatar.avatar.url == None %}
+                             <img src="/media/profile.png" alt="" >
+                        {% else %}
+                           <img src="{{ avatar.avatar.url }}" alt="">
+
+                        {% endif %}
+                    </div>
+
+        <div class="col-sm-6">
+                             <h3>@{{ user }}</h3><br>
+                             <h5>{{user.email}}</h5>
+
+                            <br>
+                            <br>
+
+
+
+             last login : {{ user.last_login }}
+    <br>
+   Joined on  : {{ user.date_joined }}
+
+                     </div>
+             </div>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <a class="" href="{% url 'edit_profile'  user.id%}">Edit </a>
 
 

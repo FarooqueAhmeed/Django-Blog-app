@@ -111,54 +111,45 @@
      <div class="profile container bg-light shadow mb-5 py-5">
 
               <h1 class="font text-center color">Profile</h1>
-<hr> <br>
-             <div class="row">
+                    <hr> <br>
+         <div class="row">
                      <div class="col-sm-6 text-center">
 
+                        {% if  blog_user_avatar.avatar.url == None %}
+                             <img src="/media/profile.png" alt="" >
+                        {% else %}
+                           <img src="{{ blog_user_avatar.avatar.url }}" alt="">
 
+                        {% endif %}
+                    </div>
 
-
-{% if  blog_user_avatar.avatar.url == None %}
-     <img src="/media/profile.png" alt="" >
-{% else %}
-   <img src="{{ blog_user_avatar.avatar.url }}" alt="">
-
-{% endif %}
-
-
-
-
-
-
-                     </div>
-
-                     <div class="col-sm-6">
+        <div class="col-sm-6">
                              <h3>@{{ get_user }}</h3><br>
                              <h5>{{users.email}}</h5>
 
-                         {% if check1.boolean == True%}
+                {% if check1.boolean == True%}
                       <a href="{% url 'unfollow' check1.id%}" >
                              <button type="button" class="btn btn-outline-info">Following</button>
-                      </a>
-       {% else %}
-            <a  href="{% url 'follow_user' user.id%}" >
-                 <button type="button" class="btn btn-outline-info">Follow</button>
-            </a>
-        {% endif %}
-<br>
-<br>
-                         <button type="button" class="btn btn-info">
-                            Blogs
-                             <span class="badge badge-dark">{{ blog_count }}</span>
-  <span class="sr-only">unread messages</span>
-                     </button>
-<br>
-  <br>
-                         <button type="button" class="btn btn-info">
-                            Followers
-                             <span class="badge badge-dark">{{ followers_count }}</span>
-  <span class="sr-only">unread messages</span>
-                     </button>
+                        </a>
+                { % else %}
+                       <a  href="{% url 'follow_user' user.id%}" >
+                              <button type="button" class="btn btn-outline-info">Follow</button>
+                        </a>
+                 {% endif %}
+                            <br>
+                            <br>
+                 <button type="button" class="btn btn-info">
+                               Blogs
+                      <span class="badge badge-dark">{{ blog_count }}</span>
+                      <span class="sr-only">unread messages</span>
+                  </button>
+                            <br>
+                              <br>
+                  <button type="button" class="btn btn-info">
+                          Followers
+                      <span class="badge badge-dark">{{ followers_count }}</span>
+                      <span class="sr-only">unread messages</span>
+                   </button>
 
 
                      </div>
