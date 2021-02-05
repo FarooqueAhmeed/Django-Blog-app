@@ -167,6 +167,9 @@ def user(request, pk):
 
 
     try:
+        # get viewed user profile picture
+        blog_user_avatar = UserProfile.objects.get(user=get_user)
+        print(blog_user_avatar)
 
 
         followers_count = Following.objects.filter(follows=get_user).count()
@@ -185,9 +188,7 @@ def user(request, pk):
 
         blog_count = Blog.objects.filter(user=get_user).count()
 
-        # get viewed user profile picture
-        blog_user_avatar = UserProfile.objects.get(user=get_user)
-        print(blog_user_avatar)
+
 
         context = {
             'check1': check1 ,
@@ -221,7 +222,7 @@ def user(request, pk):
         # # get viewed user profile picture
         # blog_user_avatar = UserProfile.objects.get(user=get_user)
         # print(blog_user_avatar)
-
+        blog_user_avatar = None
         msg ='User has image !'
         context = {
             #'check1': check1,
@@ -231,7 +232,7 @@ def user(request, pk):
             'blog_count':blog_count,
             'followers_count': followers_count,
             'msg':msg,
-            #'blog_user_avatar': blog_user_avatar,
+            'blog_user_avatar': blog_user_avatar,
              }
         return render(request, 'user.html', context)
 
