@@ -172,64 +172,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{ get_user }}
-
-       {% if check1.boolean == True%}
-                      <a class="btn btn-primary btn-sm" href="{% url 'unfollow' check1.id%}" >unfollow</a>
-       {% else %}
-            <a class="btn btn-primary btn-sm" href="{% url 'follow_user' user.id%}" >Follow</a>
-        {% endif %}
-
-   <br>
-
-Blogs : {{ blog_count }}
-   <br>
-Followers : {{ followers_count }}
     <section class="blog-posts">
-
-
-{% if  blog_user_avatar.avatar.url == None %}
-     <img src="/media/profile.png" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% else %}
-   <img src="{{ blog_user_avatar.avatar.url }}" alt="">
-
-{% endif %}
-
-
-
-
-
-
-
-
-
-
-
 
       <div class="container">
         <div class="row">
