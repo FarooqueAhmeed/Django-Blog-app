@@ -2,25 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here..
-#
-# class ExampleModel(models.Model):
-#     model_pic = models.ImageField(upload_to = 'blog_image/', default ='media/profile.png')
-
-
 
 class UserProfile(models.Model):
     user          = models.OneToOneField(User,on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, blank=True,upload_to="profile_pics",default='profile.png')
     def __str__(self):
-        return '{} {} {}'.format(self.user,'-and image-', self.avatar)
+        return '{} {} {}'.format(self.user,'-image-', self.avatar)
 
 
 class BIO(models.Model):
     user          = models.OneToOneField(User,on_delete=models.CASCADE)
     bio = models.CharField(max_length=100, null=True,blank=True)
     def __str__(self):
-        return '{} {} {}'.format(self.user,'-and image-', self.bio)
+        return '{} {} {}'.format(self.user,'-bio-', self.bio)
 
 
 

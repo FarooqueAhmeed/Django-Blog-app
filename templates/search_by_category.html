@@ -137,32 +137,32 @@
 
 
 
-{% for search in search %}
+{% for cat in cat %}
                 <div class="col-lg-12">
                   <div class="blog-post">
                     <div class="blog-thumb">
-                        <a href="{% url 'read_more' search.id %}">
-                      <img src="{{ search.image.url }}" alt="">
+                        <a href="{% url 'read_more' cat.id %}">
+                      <img src="{{ cat.image.url }}" alt="">
                         </a>
                     </div>
                     <div class="down-content">
-                        <a href="{% url 'read_more' search.id%}">
-                      <span>  {{ search.title }}</span>
+                        <a href="{% url 'read_more' cat.id%}">
+                      <span>  {{ cat.title }}</span>
                             </a>
 
                       <ul class="post-info">
-                        <li><a href="{% url 'user' search.id %}">By : {{ search.user}}</a></li>
-                        <li><a href="#">{{ search.created }}</a></li>
+                        <li><a href="{% url 'user' cat.id %}">By : {{ cat.user}}</a></li>
+                        <li><a href="#">{{ cat.created }}</a></li>
 
                       </ul>
-                      <p>{{ search.content }} <a href="{% url 'read_more' search.id %}"> read more </a> </p>
+                      <p>{{ cat.content }} <a href="{% url 'read_more' cat.id %}"> read more </a> </p>
                       <div class="post-options">
                         <div class="row">
                           <div class="col-6">
                             <ul class="post-tags">
                               <li><i class="fa fa-tags"></i></li>
 
-                              <li><a href="#">{{ search.category }}</a></li>
+                              <li><a href="#">{{ cat.category }}</a></li>
                             </ul>
                           </div>
                           <div class="col-6">
@@ -234,7 +234,7 @@
                     </div>
                     <div class="content">
                       <ul>
-                        <li><a href="{% url 's_by_Sports' %}" >- Sports </a></li>
+                        <li><a href="#">- Nature Lifestyle</a></li>
                         <li><a href="#">- Awesome Layouts</a></li>
                         <li><a href="#">- Creative Ideas</a></li>
                         <li><a href="#">- Responsive Templates</a></li>
@@ -314,28 +314,6 @@
           }
       }
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

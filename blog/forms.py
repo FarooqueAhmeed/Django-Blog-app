@@ -55,12 +55,6 @@ class UserProfileForm(forms.ModelForm):
 
 
 
-class UserBioForm(forms.ModelForm):
-    class Meta:
-        model = BIO
-        fields =['bio']
-
-
 
 
 #

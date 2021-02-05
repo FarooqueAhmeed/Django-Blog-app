@@ -61,7 +61,17 @@ urlpatterns = [
     path('edit_profile/<int:pk>/', edit_profile, name='edit_profile'),
 
     path('update_user_info', update_user_info, name='update_user_info'),
-    path('add_bio', add_bio, name='add_bio'),
+
+    path('s_by_Sports', s_by_Sports, name='s_by_Sports'),
+
+
+    # path('add_bio', add_bio, name='add_bio'),
+
+    # path('delete_bio/<int:pk>/', delete_bio, name='delete_bio'),
+
+
+
+
 
 
 

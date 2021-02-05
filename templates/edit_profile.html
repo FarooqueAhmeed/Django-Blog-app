@@ -145,15 +145,24 @@
 
 
 
-<form action="{% url 'add_bio'  %}" method="post">
-    {% csrf_token %}
-    {{ form_bio}}
-    <div class="col-lg-12">
-      <fieldset>
-           <button type="submit" id="form-submit" class="main-button">Add</button>
-      </fieldset>
-    </div>
-</form>
+{##}
+{##}
+{#<form action="{% url 'add_bio' %}" method="post">#}
+{#    {% csrf_token %}#}
+{##}
+{#              <div class="col-md-6 col-sm-12">#}
+{#                            <fieldset>#}
+{#                              <input name="bio" type="text" id="bio" value="" required="">#}
+{#                            </fieldset>#}
+{##}
+{#                          </div>#}
+{#    <div class="col-lg-12">#}
+{#      <fieldset>#}
+{#           <button type="submit" id="form-submit" class="main-button">Add</button>#}
+{#      </fieldset>#}
+{#    </div>#}
+{#</form>#}
+
 
 
 

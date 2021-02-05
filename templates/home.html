@@ -25,10 +25,15 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
+
+
+
           <a class="navbar-brand" href="{% url 'home' %}"><h2>zizo pixels <em>.</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
@@ -138,7 +143,10 @@
                             </a>
 
                       <ul class="post-info">
-                        <li><a href="{% url 'user' blogs.id %}">By : {{ blogs.user}}</a></li>
+                        <li><a href="{% url 'user' blogs.id %}">
+
+
+                            {{ blogs.user}}</a></li>
                         <li><a href="#">{{ blogs.created }}</a></li>
 
                       </ul>
@@ -174,7 +182,7 @@
 
                 <div class="col-lg-12">
                   <div class="main-button">
-                    <a href="blog.html">View All Posts</a>
+                    <a href="{% url 'home' %}">View All Posts</a>
                   </div>
                 </div>
               </div>
@@ -184,32 +192,35 @@
             <div class="sidebar">
               <div class="row">
                 <div class="col-lg-12">
+
+
+
                   <div class="sidebar-item search">
-                    <form id="search_form" name="gs" method="GET" action="#">
-                      <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                    <form id="search_form" name="gs"  action="{%url 'search_by_blog_title' %}">
+                      <input type="text" name="title" class="searchText" placeholder="type to search..." autocomplete="on">
                     </form>
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="sidebar-item recent-posts">
                     <div class="sidebar-heading">
+
+
                       <h2>Recent Posts</h2>
+
+
                     </div>
                     <div class="content">
+
+                        {% for recent_blogs in recent_blogs %}
                       <ul>
-                        <li><a href="post-details.html">
-                          <h5>Vestibulum id turpis porttitor sapien facilisis scelerisque</h5>
-                          <span>May 31, 2020</span>
-                        </a></li>
-                        <li><a href="post-details.html">
-                          <h5>Suspendisse et metus nec libero ultrices varius eget in risus</h5>
-                          <span>May 28, 2020</span>
-                        </a></li>
-                        <li><a href="post-details.html">
-                          <h5>Swag hella echo park leggings, shaman cornhole ethical coloring</h5>
-                          <span>May 14, 2020</span>
+                        <li><a href="{% url 'read_more' recent_blogs.id %}">
+                          <h5>{{ recent_blogs.title }}</h5>
+                          <span>{{ recent_blogs.created }}</span>
                         </a></li>
                       </ul>
+                        {% endfor %}
+
                     </div>
                   </div>
                 </div>
@@ -220,7 +231,7 @@
                     </div>
                     <div class="content">
                       <ul>
-                        <li><a href="#">- Nature Lifestyle</a></li>
+                         <li><a href="{% url 's_by_Sports' %}" >- Sports ( working )</a></li>
                         <li><a href="#">- Awesome Layouts</a></li>
                         <li><a href="#">- Creative Ideas</a></li>
                         <li><a href="#">- Responsive Templates</a></li>
@@ -233,17 +244,17 @@
                 <div class="col-lg-12">
                   <div class="sidebar-item tags">
                     <div class="sidebar-heading">
-                      <h2>Tag Clouds</h2>
+                      <h2>Tags ( Comming soon )</h2>
                     </div>
                     <div class="content">
                       <ul>
                         <li><a href="#">Lifestyle</a></li>
                         <li><a href="#">Creative</a></li>
-                        <li><a href="#">HTML5</a></li>
+                        <li><a href="#">Computer science</a></li>
                         <li><a href="#">Inspiration</a></li>
                         <li><a href="#">Motivation</a></li>
-                        <li><a href="#">PSD</a></li>
-                        <li><a href="#">Responsive</a></li>
+                        <li><a href="#">Bitcoin</a></li>
+                        <li><a href="#">Freelancing</a></li>
                       </ul>
                     </div>
                   </div>
@@ -257,6 +268,21 @@
 
 
     <footer>
+
+<div class="container">
+
+<button type="button" class="btn btn-info btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Blogs">
+ {{ count_all_blogs }}
+</button>
+
+
+ <button type="button" class="btn btn-warning btn-circle btn-xl" data-toggle="tooltip" data-placement="top" title="Users">
+{{ count_all_users }}
+ </button>
+
+</div>
+
+<br>
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -268,11 +294,12 @@
               <li><a href="#">Dribbble</a></li>
             </ul>
           </div>
+
+
           <div class="col-lg-12">
             <div class="copyright-text">
-              <p>Copyright 2020 Stand Blog Co.
-
-                 | Design: <a rel="nofollow" href="https://templatemo.com" target="_parent">TemplateMo</a></p>
+              <p>Copyright 2021 Stand
+                  | zizopixels </p>
             </div>
           </div>
         </div>
@@ -300,206 +327,6 @@
           }
       }
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{##}
-{#<form action="{% url upload_pic %}" method="post" enctype="multipart/form-data">{% csrf_token %}#}
-{#    <p>#}
-{#        <input id="id_image" type="file" class="" name="image">#}
-{#    </p>#}
-{#    <input type="submit" value="Submit" />#}
-{#</form>#}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'favorites' %}">Favorites</a>
-              <a class="dropdown-item" href="{% url 'my_followed' %}">My followed</a>
-             <a class="dropdown-item" href="{% url 'my_blogs' %}">My Blogs</a>
-            <a class="dropdown-item" href="{% url 'my_followers' user.id%}">My followers</a>
-
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-
-    </ul>
-       <a class="" href="{% url 'add_blog'  %}">Add</a>
-    <form class="form-inline my-2 my-lg-0" action="{%url 'search_by_blog_title' %}">
-      <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-
-
-    </form>
-
-       <a href="{% url 'profile' user.id %}" >{{ user.get_username }} </a> //
-
-     <a class="" href="{% url 'logout' %}">Logout</a>
-  </div>
-</nav>
-
-
-
-
-
-<div class="container">
-
-
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#Category </th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Content</th>
-      <th scope="col">Published</th>
-
-        {% if user.id == blogs.user.id%}
-
-      <th scope="col">Delete</th>
-      <th scope="col">Update</th>
-        {% endif %}
-          <th scope="col">Read more</th>
-
-
-    </tr>
-  </thead>
-  <tbody>
-    {% for blogs in blogs %}
-    <tr>
-      <th scope="row">{{ blogs.category }}</th>
-      <td>{{ blogs.title }}</td>
-      <td>
-    <a href="{% url 'user' blogs.id %}" >
-
-          {{ blogs.user}}
-        </a>
-    </td>
-      <td>{{ blogs.content }}</td>
-      <td>{{ blogs.created }}</td>
-      <td>
-           {% if user.id == blogs.user.id%}
-     <a class="btn btn-primary btn-sm" href="{% url 'delete_blog' blogs.id %}" onclick="return confirm('Are you sure you want to delete blog?')" >Delete</a>
-    </td>
-      <td>
-     <a class="btn btn-primary btn-sm" href="{% url 'edit' blogs.id %}" >Edit</a>
-    </td>
-    {% endif %}
-
-       <td>
-     <a class="btn btn-primary btn-sm" href="{% url 'read_more' blogs.id %}" >Read more</a>
-    </td>
-
-
-    </tr>
-
-
-   {% endfor %}
-
-
-  </tbody>
-</table>
-
-Blogs :{{ count_all_blogs }}
-<br>
-Register users :{{ count_all_users }}
-
-
-</div>
-
-
-
-
-
-
-
-<div class="container">
-
-
-
-{% if user.avatar == None %}
-     <img src="media/profile.png" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% else %}
-
-
-    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% endif %}
-
-
-</div>
 
 
 

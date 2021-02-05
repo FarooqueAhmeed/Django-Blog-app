@@ -15,10 +15,8 @@ from django.contrib import messages
 
 # Create your views here.
 from django.urls import reverse
-from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm, UpdateUserForm, UserBioForm
-from .models import Blog, Comments, Favorite, Following, UserProfile
-
-
+from .forms import BlogForm, Blog_update_Form, BlogImageForm, UserProfileForm, UpdateUserForm
+from .models import Blog, Comments, Favorite, Following, UserProfile, BIO
 
 
 def user_signup(request):
@@ -105,6 +103,9 @@ def home(request):
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
 
+    recent_blogs = Blog.objects.all().order_by('-created')
+    print(recent_blogs)
+
     #
     # user_p = UserProfile.objects.all()
     # print(user_p)
@@ -120,6 +121,7 @@ def home(request):
            'count_all_blogs': count_all_blogs,
            'count_all_users': count_all_users,
            'avatar': avatar,
+           'recent_blogs':recent_blogs,
        }
 
        return render(request, 'home.html', context)
@@ -132,25 +134,11 @@ def home(request):
         'count_all_blogs':count_all_blogs,
         'count_all_users':count_all_users,
         'avatar':avatar,
+        'recent_blogs':recent_blogs,
     }
 
     return render(request, 'home.html',context)
 
-
-
-
-#
-#
-# def upload_pic(request):
-#     if request.method == 'POST':
-#         form = ImageUploadForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             m = ExampleModel.objects.get(pk=id)
-#             m.model_pic = form.cleaned_data['image']
-#             print(m)
-#             m.save()
-#             return HttpResponse('image upload success')
-#     return HttpResponseForbidden('allowed only via POST')
 
 
 
@@ -168,9 +156,11 @@ def user(request, pk):
     get_user = User.objects.get(blog=user)
     print(get_user)
 
+
     #getting the exact/logined user which is requesting
     r_user = User.objects.get(username__exact=request.user)
     print(r_user)
+
 
 
     try:
@@ -296,14 +286,6 @@ def add_blog(request):
         content = request.POST.get('content')
         image = request.FILES['image']
 
-        # image = Image.open(image)
-        # image = image.convert('RGB')
-        # image = image.resize((800, 800), image.ANTIALIAS)
-        # output = io.BytesIO()
-        # image.save(output, format='JPEG', quality=85)
-        # output.seek(0)
-        # return InMemoryUploadedFile(output, 'ImageField',image.name,'image/jpeg',sys.getsizeof(output), None)
-        #
 
         blog = Blog(category=category,title=title,content=content,image=image,user=request.user)
         blog.save()
@@ -320,18 +302,6 @@ def add_blog(request):
 
 
 
-
-
-#
-#
-# @login_required()
-# def a_blog(request):
-#     form = BlogForm(request.POST or None, request.FILES or None)
-#     if form.is_valid():
-#         instance = form.save(commit=False)
-#         instance.user = request.user
-#         instance.save()
-#     return redirect("/home")
 
 
 
@@ -440,52 +410,32 @@ def my_blogs(request):
 
 @login_required
 def search_by_blog_title(request):
+
     search = request.GET['title']
     search = Blog.objects.filter(title__icontains=search)
+    recent_blogs = Blog.objects.all().order_by('-created')
+
+    cat = 'Business'
+    cat = Blog.objects.filter(category__icontains=cat)
+    print(cat)
+
+
     print(search)
     if search == []:
         msg = 'Not found'
-        return render(request,"search_by_blog_title.html",{'msg':msg})
+        return render(request,"search_by_blog_title.html",{'msg':msg,'recent_blogs':recent_blogs,})
     else:
-        return render(request,'search_by_blog_title.html',  {'search': search})
+        return render(request,'search_by_blog_title.html',  {'search': search,'recent_blogs':recent_blogs,})
 
-
-''' 
-@login_required()
-def edit_profile(request, pk):
-    get_user = User.objects.get(id=pk)
-    context ={'get_user': get_user}
-    return render(request,'profile.html',context)
- '''
-#
-# try:
-#     avatar = UserProfile.objects.get(user=request.user)
-#
-#     context = {
-#         'blogs': blogs,
-#         'count_all_blogs': count_all_blogs,
-#         'count_all_users': count_all_users,
-#         'avatar': avatar,
-#     }
-#
-#     return render(request, 'home.html', context)
-#
-# except UserProfile.DoesNotExist:
-#     avatar = None
-#     print(avatar)
-# context = {
-#     'blogs': blogs,
-#     'count_all_blogs': count_all_blogs,
-#     'count_all_users': count_all_users,
-#     'avatar': avatar,
-# }
 
 
 @login_required()
 def profile(request, pk):
     user = User.objects.filter(id=pk)
     user = user.get()
+    user_bio = BIO.objects.filter(id=pk)
     form = UserProfileForm (instance=user)
+
 
 
     try:
@@ -494,14 +444,14 @@ def profile(request, pk):
         print(avatar)
         print(user)
 
-        return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form})
+        return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form,'user_bio':user_bio})
 
     except UserProfile.DoesNotExist:
         avatar = None
         print(avatar)
 
 
-    return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form})
+    return render(request, 'profile.html', {'user':user,'avatar':avatar,'form':form,'user_bio':user_bio})
 
 
 
@@ -520,22 +470,6 @@ def upload_profile(request):
 
 
 
-#
-# @login_required()
-# def update_profile(request, pk):
-#     user = User.objects.filter(id=pk)
-#     user = user.get()
-#     if request.method == "POST":
-#         username = request.POST.get('username')
-#         email = request.POST.get('email')
-#
-#         get_user = User(username=username,email=email)
-#         get_user.save()
-#         return redirect("/home")
-#     context = {'user': user}
-#     return render(request, 'profile.html',context)
-
-
 
 
 @login_required()
@@ -552,7 +486,8 @@ def edit_profile(request,pk):
     user = User.objects.filter(id=pk)
     user = user.get()
     form = UserProfileForm(instance=user)
-    form_bio = UserBioForm(instance=user)
+    user_bio = BIO.objects.filter(id=pk)
+
 
     formUpdate = UpdateUserForm(instance=user)
 
@@ -562,13 +497,13 @@ def edit_profile(request,pk):
         print(avatar)
         print(user)
 
-        return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate,'form_bio':form_bio})
+        return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate,'user_bio':user_bio})
 
     except UserProfile.DoesNotExist:
         avatar = None
         print(avatar)
 
-    return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate,'form_bio':form_bio})
+    return render(request, 'edit_profile.html', {'user': user, 'avatar': avatar, 'form': form,'formUpdate':formUpdate,'user_bio':user_bio})
 
 
 
@@ -584,13 +519,49 @@ def update_user_info(request):
     return redirect("/home")
 
 
+
+
+
+
 @login_required()
-def add_bio(request):
-    if request.method == "POST":
-        u_form = UserBioForm(instance=request.user, data=request.POST)
+def s_by_Sports(request):
+    recent_blogs = Blog.objects.all().order_by('-created')
 
-        if u_form.is_valid():
-            u_form.save()
-            messages.success(request, f'Your BIO has been updated!')
+    cat = 'Sports'
+    cat = Blog.objects.filter(category__icontains=cat)
+    print(cat)
 
-    return redirect("/home")
+
+    if cat == []:
+        msg = 'Not found'
+        return render(request,"search_by_category.html",{'msg':msg,'recent_blogs':recent_blogs,})
+    else:
+        return render(request,'search_by_category.html',  {'cat': cat,'recent_blogs':recent_blogs,})
+
+
+
+#
+#
+# @login_required()
+# def add_bio(request):
+#
+#     if request.method == "POST":
+#         bio = request.POST.get('bio')
+#
+#         bio = BIO(bio=bio, user=request.user)
+#         bio.save()
+#         messages.success(request, f'Your BIO has been updated!')
+#
+#     return redirect("/home")
+#
+#
+#
+#
+# @login_required()
+# def delete_bio(request,pk):
+#     bio = BIO.objects.get(id=pk)
+#     bio.delete()
+#
+#     messages.success(request, f'Your BIO has been deleted!')
+#
+#     return redirect("/home")
