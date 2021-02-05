@@ -234,7 +234,7 @@ def user(request, pk):
             'msg':msg,
             'blog_user_avatar': blog_user_avatar,
              }
-        return render(request, 'user.html', context)
+    return render(request, 'user.html', context)
 
 
 
