@@ -140,10 +140,10 @@ Followers : {{ followers_count }}
        {% for all_blogs in all_blogs %}
                 <div class="col-lg-12">
                   <div class="blog-post">
-                    <div class="blog-thumb">
-
-                      <img src="" alt="">
-
+                     <div class="blog-thumb">
+                        <a href="{% url 'read_more' all_blogs.id %}">
+                      <img src="{{ all_blogs.image.url }}" alt="">
+                        </a>
                     </div>
                     <div class="down-content">
 
