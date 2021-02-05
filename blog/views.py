@@ -146,6 +146,7 @@ def home(request):
 # this fuction will be called when any user wants view any user profile
 @login_required()
 def user(request, pk):
+    blog_user_avatar =None
 
     # getting user name
     user = Blog.objects.filter(id=pk)
@@ -171,7 +172,6 @@ def user(request, pk):
         blog_user_avatar = UserProfile.objects.get(user=get_user)
         print(blog_user_avatar)
 
-
         followers_count = Following.objects.filter(follows=get_user).count()
         print(followers_count)
 
@@ -190,15 +190,33 @@ def user(request, pk):
 
 
 
-        context = {
-            'check1': check1 ,
-            'get_user':get_user,
-            'all_blogs':all_blogs,
-            'blog_count':blog_count,
-            'followers_count':followers_count,
-            'blog_user_avatar':blog_user_avatar,
-        }
-        return render(request, 'user.html', context)
+
+
+        if blog_user_avatar == None:
+            blog_user_avatar = None
+
+            context = {
+                'check1': check1,
+                'get_user': get_user,
+                'all_blogs': all_blogs,
+                'blog_count': blog_count,
+                'followers_count': followers_count,
+                'blog_user_avatar': blog_user_avatar,
+            }
+            return render(request, 'user.html', context)
+
+
+        else:
+
+            context = {
+                'check1': check1,
+                'get_user': get_user,
+                'all_blogs': all_blogs,
+                'blog_count': blog_count,
+                'followers_count': followers_count,
+                'blog_user_avatar': blog_user_avatar,
+            }
+            return render(request, 'user.html', context)
 
     except:
 
@@ -220,24 +238,23 @@ def user(request, pk):
         print(followers_count)
 
         # # get viewed user profile picture
-        blog_user_avatar = UserProfile.objects.get(user=get_user)
+        #blog_user_avatar = UserProfile.objects.get(user=get_user)
         # print(blog_user_avatar)
 
-
         context = {
-            #'check1': check1,
-            'user':user,
-            'get_user':get_user,
-             'all_blogs':all_blogs,
-            'blog_count':blog_count,
-            'followers_count': followers_count,
-            'blog_user_avatar': blog_user_avatar,
-             }
+                #'check1': check1,
+                'user':user,
+                'get_user':get_user,
+                 'all_blogs':all_blogs,
+                'blog_count':blog_count,
+                'followers_count': followers_count,
+                'blog_user_avatar': blog_user_avatar,
+                 }
         return render(request,'user.html',context)
-    finally:
-
-
-           return render(request, 'user.html',context)
+    # finally:
+    #
+    #
+    #        return render(request, 'user.html',context)
 
 
 
