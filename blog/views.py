@@ -103,7 +103,7 @@ def home(request):
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
 
-    recent_blogs = Blog.objects.all().order_by('-created')
+    recent_blogs = Blog.objects.all().order_by('-created')[:5]
     print(recent_blogs)
 
     #
@@ -220,10 +220,10 @@ def user(request, pk):
         print(followers_count)
 
         # # get viewed user profile picture
-        # blog_user_avatar = UserProfile.objects.get(user=get_user)
+        blog_user_avatar = UserProfile.objects.get(user=get_user)
         # print(blog_user_avatar)
-        blog_user_avatar = None
-        msg ='User has image !'
+
+
         context = {
             #'check1': check1,
             'user':user,
@@ -231,10 +231,13 @@ def user(request, pk):
              'all_blogs':all_blogs,
             'blog_count':blog_count,
             'followers_count': followers_count,
-            'msg':msg,
             'blog_user_avatar': blog_user_avatar,
              }
-    return render(request, 'user.html', context)
+        return render(request,'user.html',context)
+    finally:
+
+
+           return render(request, 'user.html',context)
 
 
 
@@ -429,7 +432,7 @@ def search_by_blog_title(request):
 
     search = request.GET['title']
     search = Blog.objects.filter(title__icontains=search)
-    recent_blogs = Blog.objects.all().order_by('-created')
+    recent_blogs = Blog.objects.all().order_by('-created')[:5]
 
     cat = 'Business'
     cat = Blog.objects.filter(category__icontains=cat)
