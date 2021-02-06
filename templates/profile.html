@@ -86,8 +86,6 @@
 
 
 <br><br><br><br><br>
-    <br><br><br><br><br>
-    <br><br><br><br><br>
 
 
 
@@ -110,120 +108,41 @@
                     </div>
 
         <div class="col-sm-6">
-                             <h3>@{{ user }}</h3><br>
+
+
+             <a class="" href="{% url 'favorites' %}">Favorites</a>
+            |
+              <a class="" href="{% url 'my_followed' %}">My followed</a>
+            |
+             <a class="" href="{% url 'my_blogs' %}">My Blogs</a>
+            |
+            <a class="" href="{% url 'my_followers' user.id%}">My followers</a>
+
+                            <br>
+             <br>
+
+        <h3>@{{ user }}
+    <a class="" href="{% url 'edit_profile'  user.id%}">
+
+                  <span style="font-size: 1em; color: dimgray;">
+                   <i class="fas fa-edit"></i>
+                 </span>
+     </a></h3><br>
+
                              <h5>{{user.email}}</h5>
 
-                            <br>
-                            <br>
 
-
-
+             <br>
              last login : {{ user.last_login }}
     <br>
    Joined on  : {{ user.date_joined }}
+
+
 
                      </div>
              </div>
 
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <a class="" href="{% url 'edit_profile'  user.id%}">Edit </a>
-
-
-
-<div class="container">
-
-
-
-{% if  avatar.avatar.url  == None %}
-     <img src="/media/profile.png" alt="" style=" width: 150px;
-  height: 150px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% else %}
-    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 150px;
-  height: 150px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-
-{% endif %}
-
-
-
-
-
-
- </div> 
-
-
-
-   <div class="container">
-
-
-
-   name : {{ user }}
-       <br>
-   email : {{ user.email }}
-   <br>
-{#       BIO : {{ user.bio.bio }}#}
-       <br>
-   last login : {{ user.last_login }}
-    <br>
-   Joined on  : {{ user.date_joined }}
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

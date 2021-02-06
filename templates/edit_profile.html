@@ -85,47 +85,42 @@
 
 
 
+
 <br><br><br><br><br>
-    <br><br><br><br><br>
-    <br><br><br><br><br>
-
-<div class="container">
 
 
 
-{% if  avatar.avatar.url  == None %}
-     <img src="/media/profile.png" alt="" style=" width: 150px;
-  height: 150px;
-  border-radius: 50%; /*don't forget prefixes*/
 
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% else %}
-    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 150px;
-  height: 150px;
-  border-radius: 50%; /*don't forget prefixes*/
 
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
 
-{% endif %}
+     <div class="profile container bg-light shadow mb-5 py-5">
+
+              <h1 class="font text-center color">Your Profile</h1>
+                    <hr> <br>
+         <div class="row">
+                     <div class="col-sm-6 text-center">
+
+                        {% if  avatar.avatar.url == None %}
+                             <img src="/media/profile.png" alt="" >
+                        {% else %}
+                           <img src="{{ avatar.avatar.url }}" alt="">
+
+                        {% endif %}
 
 
 
 
 
 {% if  avatar.avatar.url  == None %}
-
-
 <form action="{% url 'upload_profile' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p}}
-    <div class="col-lg-12">
+    <div class="col-lg-9">
+
       <fieldset>
-           <button type="submit" id="form-submit" class="main-button">Add</button>
+             <button type="submit" id="form-submit" class="btn btn-outline-success">Upload</button>
       </fieldset>
+
     </div>
 </form>
 
@@ -135,9 +130,12 @@
 <form action="{% url 'remove_img' avatar.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
       <div class="col-lg-12">
+   <br>
       <fieldset>
-           <button type="submit" id="form-submit" class="main-button">Remove</button>
+          <button type="submit" id="form-submit" class="btn btn-outline-danger">Delete</button>
       </fieldset>
+
+
     </div>
 </form>
 
@@ -145,28 +143,12 @@
 
 
 
-{##}
-{##}
-{#<form action="{% url 'add_bio' %}" method="post">#}
-{#    {% csrf_token %}#}
-{##}
-{#              <div class="col-md-6 col-sm-12">#}
-{#                            <fieldset>#}
-{#                              <input name="bio" type="text" id="bio" value="" required="">#}
-{#                            </fieldset>#}
-{##}
-{#                          </div>#}
-{#    <div class="col-lg-12">#}
-{#      <fieldset>#}
-{#           <button type="submit" id="form-submit" class="main-button">Add</button>#}
-{#      </fieldset>#}
-{#    </div>#}
-{#</form>#}
 
 
 
+                    </div>
 
- </div> 
+        <div class="col-sm-6">
 
 
 
@@ -222,24 +204,10 @@
 
 
 
+                     </div>
+             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      </div>
 
 
 
