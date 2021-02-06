@@ -423,10 +423,8 @@ def fav(request, pk):
 @login_required
 def favorites(request):
 
-
-
     fav = Favorite.objects.filter(user__exact=request.user)
-    # blogs = Blog.objects.all()
+
     print(fav)
     if fav == None:
         messages.success(request, f"You have not added any blog to Favorites !")
