@@ -381,6 +381,8 @@ def read_more(request, pk):
     try:
         check_favorited = Favorite.objects.get(blog_id__in=blogs)
         print(check_favorited)
+        return render(request, 'read_more.html', {'comment': comment, 'blogs': blogs, 'comments_count': comments_count,
+                                                  'check_favorited': check_favorited, })
     except:
 
         return render(request, 'read_more.html', {'comment': comment,'blogs':blogs, 'comments_count':comments_count,'check_favorited':check_favorited,})
