@@ -424,12 +424,16 @@ def fav(request, pk):
 def favorites(request):
 
 
+
     fav = Favorite.objects.filter(user__exact=request.user)
-    blogs = Blog.objects.all()
+    # blogs = Blog.objects.all()
     print(fav)
+    if fav == None:
+        messages.success(request, f"You have not added any blog to Favorites !")
+        return render(request, 'favorites.html', {'fav': fav,})
+    else:
 
-
-    return render(request, 'favorites.html',  {'fav': fav,'blogs':blogs})
+        return render(request, 'favorites.html',  {'fav': fav,})
 
 
 
@@ -440,7 +444,7 @@ def deletefav(request, pk):
     blog_title = fav.blog.title
     fav.delete()
     messages.success(request, f" {blog_title}  Deleted")
-    return redirect('favorites')
+    return redirect('/home')
 
 
 
