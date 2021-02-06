@@ -79,14 +79,10 @@
 
             {% if user.id == blogs.user.id%}
      <a href="{% url 'delete_blog' blogs.id %}" onclick="return confirm('Are you sure you want to delete blog?')" >Delete</a>
-
-
      <a  href="{% url 'edit' blogs.id %}" >Edit</a>
-
-    {% endif %}
+            {% endif %}
 
 {% if user.id == blogs.user.id%}
-
     <a href="{% url 'fav' blogs.id %}">
          <button  type="button" disabled>
                         fav
@@ -94,13 +90,11 @@
      </a>
 
    {% else %}
-
     <a href="{% url 'fav' blogs.id %}">
          <button type="button">
                         fav
          </button>
      </a>
-
     {% endif %}
 
 
@@ -110,6 +104,37 @@
 
 
                 <div class="col-lg-12">
+
+
+
+           {% if user.id == blogs.user.id%}
+
+         <a href="{% url 'delete_blog' blogs.id %}" onclick="return confirm('Are you sure you want to delete blog?')" >
+               <span style="font-size: 2em; color: red;">
+                    <i class="far fa-trash-alt">
+                    </i>
+               </span>
+            </a>
+
+          <a  href="{% url 'edit' blogs.id %}" >
+              <span style="font-size: 2em; color: dimgray;">
+                   <i class="fas fa-edit"></i>
+              </span>
+          </a>
+          {% endif %}
+
+
+                <span style="font-size: 2em; color: dimgray;">
+                   <i class="far fa-bookmark"></i>
+               </span>
+
+
+
+                <span style="font-size: 2em; color: dimgray;">
+                     <i class="fas fa-bookmark"></i>
+               </span>
+
+
                   <div class="blog-post">
                     <div class="blog-thumb">
                         <a href="{% url 'read_more' blogs.id %}">
