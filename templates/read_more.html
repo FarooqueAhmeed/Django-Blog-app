@@ -124,13 +124,6 @@
           {% endif %}
 
 
-{#    {% if user.id == blogs.user.id%}#}
-{#        <a href="{% url 'fav' blogs.id %}">#}
-{#           <i class="fas fa-bookmark"></i>#}
-{#         </a>#}
-{#    {% else %}#}
-{#        #}
-{# {% endif %}#}
 
 
 
@@ -174,6 +167,10 @@
 
 
 
+    {% if user.id == blogs.user.id%}
+        <p style="color: darkblue">Your blog</p>
+    {% else %}
+
                           {% if check_favorited == None%}
                                 <a href="{% url 'fav' blogs.id %}">
                                     <span style="font-size: 2em; color: dimgray;">
@@ -188,7 +185,7 @@
                          </span>
                           {% endif %}
 
-
+ {% endif %}
                             </ul>
 
                           </div>
@@ -254,6 +251,7 @@
                           <div class="right-content">
                             <h4>{{ comment.user.username }}<span>{{ comment.created}}</span></h4>
                               <p>{{ comment.comment }}</p>
+                          </div>
                         </li>
 
                       </ul>
