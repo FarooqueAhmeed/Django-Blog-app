@@ -124,13 +124,16 @@
           {% endif %}
 
 
+  {% if check_favorited == None%}
 
     {% if user.id == blogs.user.id%}
 
     <a href="{% url 'fav' blogs.id %}">
        <i class="fas fa-bookmark"></i>
      </a>
+   {% else %}
 
+ {% endif %}
    {% else %}
 
          <a href="{% url 'fav' blogs.id %}">
@@ -139,7 +142,8 @@
                        </span>
                  </a>
 
-    {% endif %}
+
+  {% endif %}
 
 
 
