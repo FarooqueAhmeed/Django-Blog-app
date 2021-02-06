@@ -126,15 +126,19 @@
 
 
     {% if user.id == blogs.user.id%}
-                <a href="{% url 'fav' blogs.id %}">
+
+    <a href="{% url 'fav' blogs.id %}">
+       <i class="fas fa-bookmark"></i>
+     </a>
+
+   {% else %}
+
+         <a href="{% url 'fav' blogs.id %}">
                       <span style="font-size: 2em; color: dimgray;">
                                <i class="far fa-bookmark"></i>
                        </span>
                  </a>
-   {% else %}
-    <a href="{% url 'fav' blogs.id %}">
-       <i class="fas fa-bookmark"></i>
-     </a>
+
     {% endif %}
 
 

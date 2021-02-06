@@ -371,13 +371,19 @@ def update(request, pk):
 def read_more(request, pk):
     blogs = Blog.objects.filter(id=pk)
     blogs = blogs.get()
+
     comment = Comments.objects.filter(blog=blogs)
     comments_count = Comments.objects.filter(blog=blogs).count()
 
-
     blogs = Blog.objects.filter(id=pk)
 
-    return render(request, 'read_more.html', {'comment': comment,'blogs':blogs, 'comments_count':comments_count})
+    check_favorited = None
+    try:
+        check_favorited = Favorite.objects.get(blog_id__in=blogs)
+        print(check_favorited)
+    except:
+
+        return render(request, 'read_more.html', {'comment': comment,'blogs':blogs, 'comments_count':comments_count,'check_favorited':check_favorited,})
 
 
 
@@ -414,9 +420,12 @@ def fav(request, pk):
 
 @login_required
 def favorites(request):
+
+
     fav = Favorite.objects.filter(user__exact=request.user)
     blogs = Blog.objects.all()
     print(fav)
+
 
     return render(request, 'favorites.html',  {'fav': fav,'blogs':blogs})
 
