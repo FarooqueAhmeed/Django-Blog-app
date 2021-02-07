@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['zizopixelsblogs.herokuapp.com']
 
 
 
+
 #AUTH_USER_MODEL = 'blog.UserProfile'
 
 
@@ -151,6 +152,7 @@ LOGIN_URL = reverse_lazy('login')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+DISABLE_COLLECTSTATIC=1
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
