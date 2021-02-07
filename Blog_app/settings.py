@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import django_heroku
 import os
 from pathlib import Path
 
@@ -25,9 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'o&cq0vj-qp$08lx24@a7m*(g_mny$fzxvva=*#b9#(p0+a(mvf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['zizopixelsblogs.herokuapp.com']
+
 
 
 #AUTH_USER_MODEL = 'blog.UserProfile'
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,3 +146,7 @@ LOGIN_URL = reverse_lazy('login')
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
