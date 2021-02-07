@@ -154,7 +154,7 @@ def home(request):
 # this fuction will be called when any user wants view any user profile
 @login_required()
 def user(request, pk):
-    blog_user_avatar =None
+    blog_user_avatar = None
 
     # getting user name
     user = Blog.objects.filter(id=pk)
