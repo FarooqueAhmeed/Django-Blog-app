@@ -85,6 +85,12 @@ def usermail_exists(useremail):
 
 def index(request):
     blogs = Blog.objects.all()
+
+    # paginations
+    paginator = Paginator(blogs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
 
@@ -92,7 +98,7 @@ def index(request):
     print(recent_blogs)
 
     context= {
-        'blogs':blogs,
+        'blogs':page_obj,
         'count_all_blogs': count_all_blogs,
         'count_all_users': count_all_users,
         'recent_blogs': recent_blogs,
@@ -254,12 +260,9 @@ def user(request, pk):
         followers_count = Following.objects.filter(follows=get_user).count()
         print(followers_count)
 
-        # # get viewed user profile picture
-        #blog_user_avatar = UserProfile.objects.get(user=get_user)
-        # print(blog_user_avatar)
 
         context = {
-                #'check1': check1,
+                'check1': check1,
                 'user':user,
                 'get_user':get_user,
                  'all_blogs':all_blogs,
