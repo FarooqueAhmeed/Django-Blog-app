@@ -103,21 +103,16 @@
 
 
        {% if check1.boolean == True%}
-                      <a class="btn btn-primary btn-sm" href="{% url 'unfollow' check1.id%}" >unfollow</a>
-       {% else %}
-            <a class="btn btn-primary btn-sm" href="{% url 'follow_user' user.id%}" >Follow</a>
-        {% endif %}
-
-
-                {% if check1.boolean == True%}
                       <a href="{% url 'unfollow' check1.id%}" >
                              <button type="button" class="btn btn-outline-info">Following</button>
                         </a>
-                { % else %}
-                       <a  href="{% url 'follow_user' user.id%}" >
+       {% else %}
+            <a  href="{% url 'follow_user' user.id%}" >
                               <button type="button" class="btn btn-outline-info">Follow</button>
                         </a>
-                 {% endif %}
+        {% endif %}
+
+
 
 
        Blogs  {{ blog_count }} | Followers  {{ followers_count }}
