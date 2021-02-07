@@ -444,9 +444,10 @@ def deletefav(request, pk):
 @login_required
 def my_blogs(request):
     my = Blog.objects.filter(user__exact=request.user)
+    recent_blogs = Blog.objects.all().order_by('-created')[:5]
 
 
-    return render(request, 'my_blogs.html',  {'my': my})
+    return render(request, 'my_blogs.html',  {'my': my,'recent_blogs':recent_blogs,})
 
 
 
