@@ -169,6 +169,7 @@ def home(request):
 def user(request, pk):
     blog_user_avatar = None
 
+
     # getting user name
     user = Blog.objects.filter(id=pk)
     user = user.get()
@@ -259,6 +260,8 @@ def user(request, pk):
 
         followers_count = Following.objects.filter(follows=get_user).count()
         print(followers_count)
+
+
 
 
         context = {
