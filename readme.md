@@ -41,7 +41,8 @@ _More features comming soon_........
 
 #**Setup**
 #go to settings.py and comment Allowed host on line #31 
-#again set Debug true on line #29
+
+#again go to settings.py set Debug true on line #29
 #1 . Create env
 
 #2 .  pip install requirements.txt
