@@ -168,6 +168,7 @@ def home(request):
 @login_required()
 def user(request, pk):
     blog_user_avatar = None
+    check1 = False
 
 
     # getting user name
