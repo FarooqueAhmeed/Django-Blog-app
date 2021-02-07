@@ -43,6 +43,14 @@
               </li>
 
 
+              <li class="nav-item">
+               <a class="nav-link" href="{% url 'add_blog'  %}">
+        <span style="font-size: 1.5em; ">
+                   <i class="fas fa-plus-square"></i>
+        </span>
+               </a>
+              </li>
+
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,46 +66,37 @@
 
 
 
-              <li class="nav-item">
-               <a class="" href="{% url 'add_blog'  %}">Add blog </a>
-              </li>
+                <li>
+                   <a href="{% url 'profile' user.id %}" >
+            {% if  avatar.avatar.url  == None %}
+                 <img src="media/profile.png" alt="" style=" width: 50px;
+              height: 50px;
+              border-radius: 50%; /*don't forget prefixes*/
 
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
-              </li>
+              background-position: center center;
+              /* as mentioned by Vad: */
+              background-size: cover;">
+            {% else %}
+                <img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
+              height: 50px;
+              border-radius: 50%; /*don't forget prefixes*/
 
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
+              background-position: center center;
+              /* as mentioned by Vad: */
+              background-size: cover;">
+            {% endif %}
+                   <span  style="font-size: 2em; color: dimgray;">
+                        <i class="fas fa-sort-down"></i>
+                  </span>
+       </a>
+
+                </li>
+
             </ul>
 
 
 
-       <a href="{% url 'profile' user.id %}" >
 
-
-{% if  avatar.avatar.url  == None %}
-     <img src="media/profile.png" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% else %}
-    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-
-{% endif %}
-       <span  style="font-size: 2em; color: dimgray;">
-<i class="fas fa-sort-down"></i>
- </span>
-       </a>
 
 
           </div>
