@@ -154,5 +154,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DISABLE_COLLECTSTATIC=1
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
