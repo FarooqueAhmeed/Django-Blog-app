@@ -24,6 +24,121 @@
 
 
 
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}"><h2>zizo pixels <em>.</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Activities
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'favorites' %}">Favorites</a>
+              <a class="dropdown-item" href="{% url 'my_followed' %}">My followed</a>
+             <a class="dropdown-item" href="{% url 'my_blogs' %}">My Blogs</a>
+            <a class="dropdown-item" href="{% url 'my_followers' user.id%}">My followers</a>
+        </div>
+      </li>
+
+
+
+              <li class="nav-item">
+               <a class="" href="{% url 'add_blog'  %}">Add blog </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About Us</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+
+
+               Welcome {{ user.get_username }} //
+
+     <a class="" href="{% url 'logout' %}">Logout</a>
+
+            </ul>
+          </div>
+        </div>
+
+
+
+      </nav>
+    </header>
+
+
+
+
+
+
+<br><br><br><br><br>
+
+
+
+
+
+
+     <div class="profile container bg-light shadow mb-5 py-5">
+
+              <h1 class="font text-center color">Your Followers </h1>
+                    <hr> <br>
+         <div class="row">
+                     <div class="col-sm-6 text-center">
+
+        <a class="" href="{% url 'favorites' %}">Favorites</a>
+            |
+             <a class="" href="{% url 'my_blogs' %}">My Blogs</a>
+            |
+             <a class="" href="{% url 'my_followed' %}">My followed</a>
+
+             <br>
+             <br>
+
+
+
+
+{% for my_followers in my_followers  %}
+   <br>
+
+    Followers - {{ my_followers_count }}
+
+       {{ my_followers.a_user}} - Follows You
+
+ {% empty %}
+                        <h5 class="card-title" style="text-decoration: underline;">Nobody Follows You !</h5>
+
+
+{% endfor %}
+
+                    </div>
+
+        <div class="col-sm-6">
+
+
+
+                     </div>
+             </div>
+
+      </div>
+
+
+
 
 
 
