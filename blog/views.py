@@ -108,6 +108,13 @@ def home(request):
 
     # getting all users blogs
     blogs = Blog.objects.all()
+
+    #paginations
+    paginator = Paginator(blogs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
     count_all_blogs = Blog.objects.all().count()
     count_all_users = User.objects.all().count()
 
@@ -125,7 +132,7 @@ def home(request):
 
 
        context = {
-           'blogs': blogs,
+           'blogs': page_obj,
            'count_all_blogs': count_all_blogs,
            'count_all_users': count_all_users,
            'avatar': avatar,
@@ -138,7 +145,7 @@ def home(request):
            avatar = None
            print(avatar)
     context = {
-        'blogs': blogs,
+        'blogs': page_obj,
         'count_all_blogs':count_all_blogs,
         'count_all_users':count_all_users,
         'avatar':avatar,
@@ -210,6 +217,7 @@ def user(request, pk):
                 'blog_count': blog_count,
                 'followers_count': followers_count,
                 'blog_user_avatar': blog_user_avatar,
+                'r_user':r_user,
             }
             return render(request, 'user.html', context)
 
@@ -223,6 +231,7 @@ def user(request, pk):
                 'blog_count': blog_count,
                 'followers_count': followers_count,
                 'blog_user_avatar': blog_user_avatar,
+                'r_user': r_user,
             }
             return render(request, 'user.html', context)
 
@@ -257,6 +266,7 @@ def user(request, pk):
                 'blog_count':blog_count,
                 'followers_count': followers_count,
                 'blog_user_avatar': blog_user_avatar,
+                  'r_user': r_user,
                  }
         return render(request,'user.html',context)
     # finally:

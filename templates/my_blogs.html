@@ -27,9 +27,6 @@
 
 
 
-
-
-
     <!-- Header -->
     <header class="">
       <nav class="navbar navbar-expand-lg">
@@ -51,7 +48,13 @@
                 </a>
               </li>
 
-
+              <li class="nav-item">
+               <a class="nav-link" href="{% url 'add_blog'  %}">
+        <span style="font-size: 1.5em; ">
+                   <i class="fas fa-plus-square"></i>
+        </span>
+               </a>
+              </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,49 +67,19 @@
             <a class="dropdown-item" href="{% url 'my_followers' user.id%}">My followers</a>
         </div>
       </li>
-
-
-
-              <li class="nav-item">
-               <a class="" href="{% url 'add_blog'  %}">Add blog </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
+                <li>
+              Welcome - <a href="{% url 'profile' user.id %}" >
+               {{ user.get_username }}
+               </a>
+                </li>
             </ul>
-
-
-
-       <a href="{% url 'profile' user.id %}" >
-
-  Welcome-{{ user.get_username }}
-       <span  style="font-size: 2em; color: dimgray;">
-<i class="fas fa-sort-down"></i>
- </span>
-       </a>
-
-
           </div>
-
-
-
-
         </div>
       </nav>
     </header>
 
 
-
-
-
-<br>
-    <br>
-
+<br><br><br><br><br>
 
 
     <section class="blog-posts">
@@ -164,6 +137,9 @@
                   </div>
                 </div>
 
+
+ {% empty %}
+                        <h5 class="card-title" style="text-decoration: underline;">You have not added any Blog !</h5>
 
 
        {% endfor %}
