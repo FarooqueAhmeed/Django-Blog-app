@@ -86,7 +86,7 @@ def usermail_exists(useremail):
 def index(request):
     blogs = Blog.objects.all()
 
-    # paginations pppp
+    # paginations
     paginator = Paginator(blogs, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
