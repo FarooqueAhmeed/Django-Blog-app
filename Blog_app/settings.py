@@ -29,7 +29,7 @@ SECRET_KEY = 'o&cq0vj-qp$08lx24@a7m*(g_mny$fzxvva=*#b9#(p0+a(mvf'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['zizopixelsblogs.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','zizopixelsblogs.herokuapp.com']
 
 
 
