@@ -29,10 +29,15 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
+
+
+
           <a class="navbar-brand" href="{% url 'home' %}"><h2>zizo pixels <em>.</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
@@ -41,7 +46,13 @@
                 </a>
               </li>
 
-
+              <li class="nav-item">
+               <a class="nav-link" href="{% url 'add_blog'  %}">
+        <span style="font-size: 1.5em; ">
+                   <i class="fas fa-plus-square"></i>
+        </span>
+               </a>
+              </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,66 +65,19 @@
             <a class="dropdown-item" href="{% url 'my_followers' user.id%}">My followers</a>
         </div>
       </li>
-
-
-
-              <li class="nav-item">
-               <a class="" href="{% url 'add_blog'  %}">Add blog </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
+                <li>
+              Welcome - <a href="{% url 'profile' user.id %}" >
+               {{ user.get_username }}
+               </a>
+                </li>
             </ul>
-
-
-
-       <a href="{% url 'profile' user.id %}" >
-
-
-{% if  avatar.avatar.url  == None %}
-     <img src="media/profile.png" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-{% else %}
-    <img src="{{ avatar.avatar.url }}" alt="" style=" width: 50px;
-  height: 50px;
-  border-radius: 50%; /*don't forget prefixes*/
-
-  background-position: center center;
-  /* as mentioned by Vad: */
-  background-size: cover;">
-
-{% endif %}
-
-
-       </a>
-
-     <a class="" href="{% url 'logout' %}">Logout</a>
-
           </div>
-
-
-
-
         </div>
       </nav>
     </header>
 
 
-
-
-
-<br>
-    <br>
+<br><br><br><br><br>
 
 
 
