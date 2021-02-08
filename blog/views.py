@@ -108,7 +108,7 @@ def index(request):
     return render(request, 'index.html',context)
 
 
-#when user will loging this function will be called 1st ..
+#when user will loging this function will be called 1st
 @login_required()
 def home(request):
 
