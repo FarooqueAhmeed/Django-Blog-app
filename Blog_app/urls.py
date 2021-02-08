@@ -70,11 +70,6 @@ urlpatterns = [
     # path('delete_bio/<int:pk>/', delete_bio, name='delete_bio'),
 
 
-
-
-
-
-
 ]
 
 
