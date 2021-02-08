@@ -130,6 +130,11 @@ USE_TZ = True
 
 
 
+LOGIN_URL = reverse_lazy('login')
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -143,16 +148,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-LOGIN_URL = reverse_lazy('login')
-
-
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DISABLE_COLLECTSTATIC=1
+
+
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
