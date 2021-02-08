@@ -28,6 +28,7 @@ SECRET_KEY = 'o&cq0vj-qp$08lx24@a7m*(g_mny$fzxvva=*#b9#(p0+a(mvf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
 ALLOWED_HOSTS = ['zizopixelsblogs.herokuapp.com']
 
 
@@ -138,8 +139,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '/static')
+MEDIA_URL = '/static/'
 
 #
 # STATIC_URL = '/static/'
