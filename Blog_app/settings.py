@@ -134,12 +134,12 @@ USE_TZ = True
 LOGIN_URL = reverse_lazy('login')
 
 
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static_cdn','media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media','media')
 MEDIA_URL = '/media/'
 
 
