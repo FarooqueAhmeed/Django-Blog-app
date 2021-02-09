@@ -6,6 +6,41 @@ https://templatemo.com/tm-551-stand-blog
 
 */
 
+
+
+
+
+#module {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+
+#module #collapseExample.collapse:not(.show) {
+  display: block;
+  height: 3rem;
+  overflow: hidden;
+}
+
+#module #collapseExample.collapsing {
+  height: 3rem;
+}
+
+#module a.collapsed::after {
+  content: '+ Show More';
+}
+
+#module a:not(.collapsed)::after {
+  content: '- Show Less';
+}
+
+
+
+
+
+
+
+
 body {
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;

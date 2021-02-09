@@ -107,8 +107,12 @@
                         <li><a href="#">{{ blogs.created }}</a></li>
 
                       </ul>
-                      <p>{{ blogs.content }} <a href="{% url 'read_more' blogs.id %}"> read more </a> </p>
-                      <div class="post-options">
+                      <p>
+                          {{ blogs.content|safe|truncatewords:"20"|linebreaks}}
+  <a href="{% url 'read_more' blogs.id %}"> read more </a> </p>
+
+                           </p>
+ <div class="post-options">
                         <div class="row">
                           <div class="col-6">
                             <ul class="post-tags">

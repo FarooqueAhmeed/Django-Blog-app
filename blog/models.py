@@ -32,8 +32,8 @@ class Blog(models.Model):
         ('Pets', 'Pets'),
     )
     category = models.CharField(max_length=13, blank=True,null=True, choices= category)
-    title = models.CharField(max_length=100, null=True,blank=True)
-    content = models.CharField(max_length=1000, null=True,blank=True)
+    title = models.CharField(max_length=1000, null=True,blank=True)
+    content = models.CharField(max_length=5000, null=True,blank=True)
     image = models.ImageField(null=True, blank=True, upload_to="blog_image")
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
