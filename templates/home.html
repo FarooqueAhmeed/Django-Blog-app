@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% load cloudinary %}
 {% load static %}
+
 <!-- Home for auth users -->
 {% block body %}
 
@@ -69,7 +71,7 @@
                 <li>
                    <a href="{% url 'profile' user.id %}" >
             {% if  avatar.avatar.url  == None %}
-                 <img src="/media/profile.png" alt="" style=" width: 50px;
+                 <img src=" https://res.cloudinary.com/drp0eidwz/image/upload/v1619068825/media/profile_pgiwth.png" alt="" style=" width: 50px;
               height: 50px;
               border-radius: 50%; /*don't forget prefixes*/
 

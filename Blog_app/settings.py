@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import django_heroku
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
@@ -46,7 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+
+    'cloudinary_storage',
+    'cloudinary',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -140,7 +146,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/Blogging/'
 
 
 STATIC_URL = '/static/'
@@ -166,6 +172,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'drp0eidwz',
+    'API_KEY': '366756873756884',
+    'API_SECRET': 'ZyEAE_SsfkspFfd1dd_ahjKIdOI'
+}
+
+
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

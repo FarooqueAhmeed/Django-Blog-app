@@ -51,7 +51,7 @@ class SignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields =['avatar']
+        fields = ['avatar']
 
 
 

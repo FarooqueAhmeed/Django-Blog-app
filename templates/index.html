@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load cloudinary %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,7 +93,9 @@
                   <div class="blog-post">
                     <div class="blog-thumb">
                         <a href="{% url 'read_more' blogs.id %}">
-                      <img src="{{ blogs.image.url }}" alt="">
+
+                      <img src="{{ blogs.image.url}}" alt="" > 
+
                         </a>
                     </div>
                     <div class="down-content">
