@@ -396,7 +396,7 @@ def update(request, pk):
 
 
 
-
+@login_required
 def read_more(request, pk):
     blogs = Blog.objects.filter(id=pk)
     blogs = blogs.get()
