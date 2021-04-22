@@ -1,2 +1,2 @@
-release: python manage.py migrate --no-input
+release: python manage.py migrate 
 web: gunicorn Blog_app.wsgi --log-file -
