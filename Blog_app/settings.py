@@ -185,6 +185,6 @@ CLOUDINARY_STORAGE = {
 }
 
 
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
