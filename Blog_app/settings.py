@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'o&cq0vj-qp$08lx24@a7m*(g_mny$fzxvva=*#b9#(p0+a(mvf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1','zizoblogs.herokuapp.com']
@@ -153,22 +153,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-)
+)   
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-
-#
-# # Static files (CSS, JavaScript, Images)
-# # https://docs.djangoproject.com/en/3.1/howto/static-files/
-# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# #STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
