@@ -1,6 +1,7 @@
 **Project desc**:
 This is an Blog web application build in **Django**
-
+username--admin
+passsword--111
 
 **Features:**
 
