@@ -79,7 +79,11 @@
 
               <h1 class="font text-center color">Your Profile</h1>
                     <hr> <br>
+
+
          <div class="row">
+
+
                      <div class="col-sm-6 text-center">
 
                         {% if  avatar.avatar.url == None %}
@@ -90,45 +94,40 @@
                         {% endif %}
 
 
+                      {% if  avatar.avatar.url  == None %}
+                      <form action="{% url 'upload_profile' %}" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          {{ form}}
+                          <div class="col-lg-9">
+
+                            <fieldset>
+                                  <button type="submit" id="form-submit" class="btn btn-outline-success">Upload</button>
+                            </fieldset>
+
+                          </div>
+                      </form>
 
 
+                      {% else %}
 
-{% if  avatar.avatar.url  == None %}
-<form action="{% url 'upload_profile' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p}}
-    <div class="col-lg-9">
-
-      <fieldset>
-             <button type="submit" id="form-submit" class="btn btn-outline-success">Upload</button>
-      </fieldset>
-
-    </div>
-</form>
+                      <form action="{% url 'remove_img' avatar.id %}" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            <div class="col-lg-12">
+                        <br>
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn btn-outline-danger">Delete</button>
+                            </fieldset>
 
 
-{% else %}
+                          </div>
+                      </form>
 
-<form action="{% url 'remove_img' avatar.id %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-      <div class="col-lg-12">
-   <br>
-      <fieldset>
-          <button type="submit" id="form-submit" class="btn btn-outline-danger">Delete</button>
-      </fieldset>
-
-
-    </div>
-</form>
-
-{% endif %}
-
-
+                      {% endif %}
+                      </div>
 
 
 
 
-                    </div>
 
         <div class="col-sm-6">
 

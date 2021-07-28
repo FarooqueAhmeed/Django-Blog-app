@@ -129,10 +129,6 @@ def home(request):
     recent_blogs = Blog.objects.all().order_by('-created')[:5]
     print(recent_blogs)
 
-    #
-    # user_p = UserProfile.objects.all()
-    # print(user_p)
-
 
 
     try:
@@ -166,7 +162,7 @@ def home(request):
 
 
 
-# this fuction will be called when any user wants view any user profile
+# this function will be called when any user wants view any user profile
 @login_required()
 def user(request, pk):
     blog_user_avatar = None
@@ -203,7 +199,7 @@ def user(request, pk):
         check2 = Following.objects.filter(follows=r_user)
         print(check2)
 
-        # check1 is for is to check if the status of the viewed user is true or false(check if exact user followibg or not)
+        # check1 is for to check if the status of the viewed user is true or false(check if exact user followibg or not)
         check1 = Following.objects.filter(follows=get_user).filter(a_user=r_user).filter(boolean=True)
         check1 = check1.get(boolean=True)
         print(check1)

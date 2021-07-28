@@ -8,14 +8,6 @@ from django.core.files.images import get_image_dimensions
 
 
 
-#
-# class ImageUploadForm(forms.Form):
-#     """Image upload form."""
-#     image = forms.ImageField()
-
-
-
-
 class UpdateUserForm(forms.ModelForm):
 
         email = forms.EmailField()

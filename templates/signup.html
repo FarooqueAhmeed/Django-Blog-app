@@ -23,6 +23,7 @@
 
 <form action={% url 'signup' %} method="post">
     {% csrf_token %}
+    
   <div class="form-group">
     <label for="exampleInputEmail1">Username</label>
     <input type="text" class="form-control" id="usename" name="username"  placeholder="username">
